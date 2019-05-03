@@ -1,12 +1,12 @@
 <?php
 /**
- * Author   : nicolas.glassey@cpnv.ch
- * Project  : Epreuve_151
+ * Author   : louis.richard@cpnv.ch
+ * Project  : ProjetWEBDB
  * Created  : 09.04.2019 - 13:46
  *
- * Last update :    [01.12.2018 author]
- *                  [add $logName in function setFullPath]
- * Git source  :    [link]
+ * Last update :    [03.05.2019 author]
+ *
+ * Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]
  */
 
 session_start();
