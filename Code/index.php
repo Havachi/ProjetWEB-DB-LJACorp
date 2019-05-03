@@ -1,11 +1,11 @@
 <?php
 /**
  * Author   : nicolas.glassey@cpnv.ch
- * Project  : Epreuve_151
+ * Project  : ProjetWeb + BDD
  * Created  : 09.04.2019 - 13:46
  *
- * Last update :    [01.12.2018 author]
- *                  [add $logName in function setFullPath]
+ * Last update :    [03.105.2019 louis.richard@cpnv.ch]
+ *                  [Add case login]
  * Git source  :    [link]
  */
 
@@ -17,6 +17,12 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'home' :
             home();
+            break;
+        case 'register' :
+            register($_POST);
+            break;
+        case 'login' :
+            login($_POST);
             break;
         default :
             home();
