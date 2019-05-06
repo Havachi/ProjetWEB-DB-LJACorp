@@ -39,3 +39,20 @@ function getASnow($snow_code){
 
     return $snowResults;
 }
+
+function addSnowInDB($snowValues){
+    $strSep = '\'';
+
+    $code=$snowValues['snowCode'];
+    $brand=$snowValues['snowBrand'];
+    $model=$snowValues['snowModel'];
+    $snowLength=$snowValues['snowSnowLength'];
+    $qtyAvailable=$snowValues['snowQtyAvailable'];
+    $dailyPrice=$snowValues['snowDailyPrice'];
+    $photo = "view/content/images/".$code."_small.jpg";
+
+
+    $query = "INSERT INTO snows (code,brand,model,snowLength,qtyAvailable,dailyPrice, photo) VALUES(".$strSep.$code.$strSep.",".$strSep.$brand.$strSep.",".$strSep.$model.$strSep.",".$strSep.$snowLength.$strSep.",".$strSep.$qtyAvailable.$strSep.",".$strSep.$dailyPrice.$strSep.",".$strSep.$photo.$strSep.")";
+    executeQuery($query);
+
+}
