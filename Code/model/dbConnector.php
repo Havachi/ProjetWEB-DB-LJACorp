@@ -1,8 +1,8 @@
 <?php
 /**
  * Author   : nicolas.glassey@cpnv.ch
- * Project  : Epreuve_151
- * Created  : 09.04.2019 - 13:48
+ * Project  : dbConnector
+ * Created  : 28.01.2019 - 20:13
  *
  * Last update :    [01.12.2018 author]
  *                  [add $logName in function setFullPath]
@@ -59,7 +59,7 @@ function openDBConnexion (){
     $hostname = 'localhost';
     $port = 3306;
     $charset = 'utf8';
-    $dbName = 'teaching';
+    $dbName = 'snows';
     $userName = 'appliConnector';
     $userPwd = '123qweasD$';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;

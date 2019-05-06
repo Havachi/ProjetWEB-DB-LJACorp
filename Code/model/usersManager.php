@@ -1,87 +1,80 @@
 <?php
 /**
- * Author   : alessandro.rossi@cpnv.ch
- * Project  : ProjetWEBDB
- * Created  : 03.05.2019 - 08:00
+ * This php file is designed to manage all operations regarding user's management
+ * Author   : nicolas.glassey@cpnv.ch
+ * Project  : Code
+ * Created  : 31.01.2019 - 18:40
  *
- * Last update :    [03.05.2019 author]
- *
- * Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]
+ * Last update :    [01.12.2018 author]
+ *                  [add $logName in function setFullPath]
+ * Source       :   pascal.benzonana
  */
 
-
-require "model/dbConnector.php";
-
-//<editor-fold desc="Login">
 /**
- * [Login]
- * This function check if the login is correct (email-password check)
+ * This function is designed to verify user's login
  * @param $userEmailAddress
- * @param $userPassword
- * @return bool
- */
-function isLoginCorrect($userEmailAddress, $userPassword)
-{
-    $isLoginCorrect = false;
-    $strSep = '\'';
-
-
-    $loginQuery = "SELECT userEmailAddress FROM users WHERE userEmailAddress = " . $strSep . $userEmailAddress . $strSep;
-
-    $queryResultEmail = executeQuery($loginQuery);
-    //check if email exist
-    if (count($queryResultEmail) == 1) {
-        $loginQuery = "SELECT userHashPsw FROM users WHERE userEmailAddress = " . $strSep . $userEmailAddress . $strSep;
-        $queryResult = executeQuery($loginQuery);
-        $queryResultpsw = $queryResult[0]["userHashPsw"];
-        if (password_verify($userPassword, $queryResultpsw) == true) {
-            $isLoginCorrect = true;
-        } else echo "Wrong password";
-
-    }
-    else
-    {
-        echo "Email does't exist in DB";
-    }
-
-    return $isLoginCorrect;
-}
-//</editor-fold>
-//<editor-fold desc="Register">
-/**
- * [Register]
- * This function check if the Email address is already in use
- * @param $userEmailAddress
- * @return bool
- */
-function checkEmailDB($userEmailAddress){
-
-    $isEmailUsed = true;
-    $strSep = '\'';
-
-
-    $emailQuery = "SELECT * FROM users WHERE userEmailAddress= ".$strSep.$userEmailAddress.$strSep." LIMIT 1";
-
-
-    $queryResult = executeQuery($emailQuery);
-
-    if(count($queryResult)== 0){
-        $isEmailUsed = false;
-        return $isEmailUsed;
-    }
-    else{
-        return $isEmailUsed;
-    }
-}
-/**
- * [Register]
- * This function register the email and password in DB
- * @param $userEmail
  * @param $userPsw
+ * @return bool : "true" only if the user and psw match the database. In all other cases will be "false".
  */
-function registerDB($userEmail, $userPsw){
-    $strSep = '\'';
-    $query = "INSERT INTO users (userEmailAddress, userHashPsw) VALUES(".$strSep.$userEmail.$strSep.",".$strSep.$userPsw.$strSep.")";
-    executeQuery($query);
+function isLoginCorrect($userEmailAddress, $userPsw){
+    $result = false;
+
+    $strSeparator = '\'';
+    $loginQuery = 'SELECT userHashPsw FROM users WHERE userEmailAddress = '. $strSeparator . $userEmailAddress . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+    $queryResult = executeQuerySelect($loginQuery);
+
+    if (count($queryResult) == 1)
+    {
+        $userHashPsw = $queryResult[0]['userHashPsw'];
+        $hashPasswordDebug = password_hash($userPsw, PASSWORD_DEFAULT);
+        $result = password_verify($userPsw, $userHashPsw);
+    }
+    return $result;
 }
-//</editor-fold>
+
+/**
+ * This function is designed to register a new account
+ * @param $userEmailAddress
+ * @param $userPsw
+ * @return bool|null
+ */
+function registerNewAccount($userEmailAddress, $userPsw){
+    $result = false;
+
+    $strSeparator = '\'';
+
+    $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
+
+    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' .$strSeparator . $userEmailAddress .$strSeparator . ','.$strSeparator . $userHashPsw .$strSeparator. ')';
+
+    require_once 'model/dbConnector.php';
+    $queryResult = executeQueryInsert($registerQuery);
+    if($queryResult){
+        $result = $queryResult;
+    }
+    return $result;
+}
+
+/**
+ * This function is designed to get the type of user
+ * For the webapp, it will adapt the behavior of the GUI
+ * @param $userEmailAddress
+ * @return int (1 = customer ; 2 = seller)
+ */
+function getUserType($userEmailAddress){
+    $result = 1;//we fix the result to 1 -> customer
+
+    $strSeparator = '\'';
+
+    $getUserTypeQuery = 'SELECT userType FROM users WHERE users.userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+    $queryResult = executeQuerySelect($getUserTypeQuery);
+
+    if (count($queryResult) == 1){
+        $result = $queryResult[0]['userType'];
+    }
+    return $result;
+}
