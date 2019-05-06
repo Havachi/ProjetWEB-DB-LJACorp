@@ -2,7 +2,7 @@
   $title ='Rent A Snow - Login/Logout';
 
 /* This file manages the form used to enable user being register on the platform
- * Title            : vue_login.php
+ * Title            : register.php
  * Creation         : 12/03/19
  * Author           : nicolas.glassey@cpnv.ch
  * Update           : 31/01/19 - nicolas.glassey@cpnv.ch
@@ -28,7 +28,7 @@ ob_start();
                 <label for="psw-repeat"><b>Repeat Password</b></label>
                 <input type="password" placeholder="Repeat Password" name="inputUserPswRepeat" required>
 
-                <p>En soumettant votre demande de compte, vous validez les conditions générales d'utilisation.<a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/">CGU et vie privée</a>.</p>
+                <p>En soumettant votre demande de compte, vous validez les conditions générales d'utilisation. <a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/">CGU et vie privée</a>.</p>
                 <button type="submit" class="btn btn-default">Register</button>
             </div>
         </form>
