@@ -29,7 +29,7 @@ ob_start();
                 <input type="password" placeholder="Repeat Password" name="inputUserPswRepeat" required>
 
                 <p>En soumettant votre demande de compte, vous validez les conditions générales d'utilisation.<a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/">CGU et vie privée</a>.</p>
-                <button type="submit" class="registerbtn">Register</button>
+                <button type="submit" class="btn btn-default">Register</button>
             </div>
         </form>
         <div class="container signin">

@@ -79,7 +79,7 @@
                                 <!-- On gère ensuite les cas pour lesquels on aimerait permettre à l'utilisateur de se connecter/s'inscrire-->
                                 <?php if(!isset($_SESSION['userEmailAddress']) || (!isset($_GET['action'])) || ((@$_GET['action']=="logout"))) :?>
                                     <li><a href="index.php?action=login">Login</a></li>
-                                    <li><a href="index.php?action=register"  style="color:#FC05CB">Register</a></li>
+                                    <li><a href="index.php?action=register">Register</a></li>
                                 <!-- Puis la situation "connecté"-->
                                 <?php else :?>
                                     <li><a href="index.php?action=logout">Logout</a></li>
