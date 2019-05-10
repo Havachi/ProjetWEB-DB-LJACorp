@@ -29,8 +29,9 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
     return $cartUpdated;
 }
 function deleteCartItem(){
-    
+
 }
+
 //in_array https://www.php.net/manual/en/function.in-array.php
 //array_push() https://www.php.net/manual/en/function.array-push.php
 //array_search

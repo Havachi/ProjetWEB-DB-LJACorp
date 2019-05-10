@@ -53,6 +53,11 @@ function addSnowInDB($snowValues){
 
 
     $query = "INSERT INTO snows (code,brand,model,snowLength,qtyAvailable,dailyPrice, photo) VALUES(".$strSep.$code.$strSep.",".$strSep.$brand.$strSep.",".$strSep.$model.$strSep.",".$strSep.$snowLength.$strSep.",".$strSep.$qtyAvailable.$strSep.",".$strSep.$dailyPrice.$strSep.",".$strSep.$photo.$strSep.")";
-    executeQuery($query);
+    executeQueryInsert($query);
 
+}
+function getSnowQty($snowCode){
+    $strSep = '\'';
+    $query = "SELECT qtyAvailable FROM snows WHERE code=".$strSep.$snowCode.$strSep;
+    executeQuerySelect($query);
 }
