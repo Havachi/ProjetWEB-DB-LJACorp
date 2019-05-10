@@ -10,26 +10,29 @@
  */
 
 /**
+ * This function update the cart simply enough
  * @param $currentCartArray
  * @param $snowCodeToAdd
  * @param $qtyOfSnowsToAdd
  * @param $howManyLeasingDays
  * @return array
  */
-
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
     $cartUpdated = array();
     if($currentCartArray != null){
         $cartUpdated = $currentCartArray;
     }
+    foreach($cartUpdated as $cart){
+        if($cart['code']==$snowCodeToAdd){
+            if ($cart['nbD']){
+                //unset($cart); not sure about dat
+                $qtyOfSnowsToAdd = $qtyOfSnowsToAdd + $cart['qty'];
+            }
+        }
+    }
     $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
-
     array_push($cartUpdated, $newSnowLeasing);
-
     return $cartUpdated;
-}
-function deleteCartItem(){
-
 }
 
 //in_array https://www.php.net/manual/en/function.in-array.php

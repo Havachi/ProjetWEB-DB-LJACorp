@@ -59,5 +59,7 @@ function addSnowInDB($snowValues){
 function getSnowQty($snowCode){
     $strSep = '\'';
     $query = "SELECT qtyAvailable FROM snows WHERE code=".$strSep.$snowCode.$strSep;
-    executeQuerySelect($query);
+    require_once 'model/dbConnector.php';
+    $snowQty =executeQuerySelect($query);
+    return $snowQty;
 }
