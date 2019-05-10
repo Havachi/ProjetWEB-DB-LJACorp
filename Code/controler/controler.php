@@ -1,13 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Pascal.BENZONANA
- * Date: 08.05.2017
- * Time: 09:10
- * Updated by : 12-MAR-2019 - nicolas.glassey
- *              Add register function
+ * This php file is designed to manage all operation regarding snow's management
+ * Author   : pascal.benzonana@cpnv.ch
+ * Project  : 151
+ * Created  : 18.02.2019 - 21:40
+ *
+ * Last update :    19.02.2019 PBA
+ *                  add function add to cart
+ * Source       :   git
  */
-
 /**
  * This function is designed to redirect the user to the home page (depending on the action received by the index)
  */
@@ -49,7 +50,7 @@ function login($loginRequest){
 
 /**
  * This fonction is designed
- * @param $registerRequest
+ * @param $registerRequest containing result from a register request
  */
 function register($registerRequest){
     //variable set
@@ -170,15 +171,46 @@ function snowLeasingRequest($snowCode){
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
     $cartArrayTemp = array();
-    if(($snowLocationRequest) AND ($snowCode)) {
-        if (isset($_SESSION['cart'])) {
-            $cartArrayTemp = $_SESSION['cart'];
+    //test quantity
+    require_once "model/snowsManager.php";
+    $qty = getSnowQty($snowCode);
+    if(($snowLocationRequest['inputQuantity']>$qty)||$snowLocationRequest<=0){
+        $_GET['qty'] = true;
+        require "view/snowLeasingRequest.php";
+    } else {
+        if (($snowLocationRequest) AND ($snowCode)) {
+            if (isset($_SESSION['cart'])) {
+                $cartArrayTemp = $_SESSION['cart'];
+            }
+            require "model/cartManager.php";
+            $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
+            $_SESSION['cart'] = $cartArrayTemp;
         }
-        require "model/cartManager.php";
-        $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
-        $_SESSION['cart'] = $cartArrayTemp;
+        $_GET['action'] = "displayCart";
+        displayCart();
     }
-    $_GET['action'] = "displayCart";
-    displayCart();
+}
+/**
+ *This function is designed to delete the selected snow in the cart
+ * @param $line
+*/
+function deleteCartRequest($line){
+    if (isset($line)){
+        array_splice($_SESSION['cart'],$line,1);
+        // Test if the cart is empty
+        if (count($_SESSION['cart'])<1)
+        {
+            unset ($_SESSION['cart']); //Cancel cart
+            require_once "model/snowsManager.php";
+            $snowsResults=getSnows();
+            $_GET['action'] = "displaySnows";
+            require "view/snows.php";
+        }
+        else
+        {
+            $_GET['action'] = "cartManage";
+            require "view/cart.php";
+        }
+    }
 }
 //endregion

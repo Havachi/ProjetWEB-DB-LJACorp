@@ -25,16 +25,29 @@ ob_start();
                 </tr>
                 <?php
                 // Displays cart session's content
-                $cartArray = $_SESSION['cart'];
-                foreach ($cartArray as $article){
+                for ($i=0; $i < count($_SESSION['cart']); $i++)
+                {
                     echo "<tr>";
-                    echo "<td>".$article['code']."</td>";
-                    echo "<td>".$article['dateD']."</td>";
-                    echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                    echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
-                    echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
+                    echo "<td>".$_SESSION['cart'][$i]['code']."</td>";
+                    echo "<td>".$_SESSION['cart'][$i]['dateD']."</td>";
 
-                    echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."'><img src='view/content/images/delete2.png'></a></td>";
+                    if ((isset($_SESSION['line'])) &&(@$_SESSION['line']==$i))
+                    {
+                        echo "<form method='POST' action='index.php?action=updCart'>";
+                        echo "<td><input type='number' name='uQty' value='".$_SESSION['cart'][$i]['qty']."'></td>";
+                        echo "<td><input type='number' name='uNbD' value='".$_SESSION['cart'][$i]['nbD']."'></td>";
+                    }
+                    else
+                    {
+                        echo "<td>".$_SESSION['cart'][$i]['qty']."</td>";
+                        echo "<td>".$_SESSION['cart'][$i]['nbD']."</td>";
+                    }
+
+                    echo "<td><a href='index.php?action=deleteCartRequest&line=".$i."'><img src='view/content/images/delete2.png'></a>";
+                    if ((isset($_SESSION['line'])) &&(@$_SESSION['line']==$i))
+                        echo "<input type='submit' src='view/content/images/edit2.png'></td>";
+                    else
+                        echo "<a href='index.php?action=updateCartRequest&line=".$i."'><img src='view/content/images/edit2.png'></td>";
                     echo "</form></tr>";
                 }
                 ?>
