@@ -21,7 +21,7 @@ ob_start();
         <form method="POST" action="index.php?action=displaySnows">
             <table class="table">
                 <tr>
-                    <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
+                    <th>Code</th><th>Date</th><th>Quantité</th><th>Nombre de jours</th><th>Retirer</th>
                 </tr>
                 <?php
                 // Displays cart session's content
