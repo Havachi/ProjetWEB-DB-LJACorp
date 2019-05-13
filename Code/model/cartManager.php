@@ -10,28 +10,37 @@
  */
 
 /**
- * This function update the cart simply enough
+ * This function add a new item in the cart
  * @param $currentCartArray
  * @param $snowCodeToAdd
  * @param $qtyOfSnowsToAdd
  * @param $howManyLeasingDays
  * @return array
  */
+
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
+    //reset the Updated Cart
+    $alreadyExist=false;
     $cartUpdated = array();
     if($currentCartArray != null){
         $cartUpdated = $currentCartArray;
     }
-    foreach($cartUpdated as $cart){
-        if($cart['code']==$snowCodeToAdd){
-            if ($cart['nbD']){
-                //unset($cart); not sure about dat
-                $qtyOfSnowsToAdd = $qtyOfSnowsToAdd + $cart['qty'];
+    foreach ($currentCartArray as $key => &$cart){
+        if($snowCodeToAdd == $cart['code']){
+            if ($howManyLeasingDays == $cart['nbD']){
+                $tempqty = $cart['qty'];
+                $cart['qty'] = $tempqty + $qtyOfSnowsToAdd;
+                $alreadyExist=true;
+
             }
         }
     }
-    $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
-    array_push($cartUpdated, $newSnowLeasing);
+    if(!$alreadyExist){
+        $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'qty' => $qtyOfSnowsToAdd, 'nbD' => $howManyLeasingDays);
+        array_push($cartUpdated, $newSnowLeasing);
+    }else{
+        $cartUpdated = $currentCartArray;
+    }
     return $cartUpdated;
 }
 
@@ -39,3 +48,4 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
 //array_push() https://www.php.net/manual/en/function.array-push.php
 //array_search
 //unset
+
