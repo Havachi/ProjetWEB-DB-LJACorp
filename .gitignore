@@ -14,3 +14,7 @@ Code/.idea/dataSources.local.xml
 Code/.idea/fileColors.xml
 Code/.idea/symfony2.xml
 Code/.idea/scopes/SQL.xml
+.idea/deployment.xml
+.idea/php.xml
+.idea/webServers.xml
+.idea/workspace.xml
