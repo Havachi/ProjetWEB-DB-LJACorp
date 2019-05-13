@@ -48,6 +48,7 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
     } else {
         //error message
         echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+        return false;
     }
 }
 
