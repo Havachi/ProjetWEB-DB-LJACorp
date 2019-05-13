@@ -15,12 +15,12 @@
  * @return array|null : get the query result (can be null)
  * Source : http://php.net/manual/en/pdo.prepare.php
  */
-function executeQuerySelect($query){
+function executeQuerySelect($query)
+{
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
-    if ($dbConnexion != null)
-    {
+    if ($dbConnexion != null) {
         $statement = $dbConnexion->prepare($query);//prepare query
         $statement->execute();//execute query
         $queryResult = $statement->fetchAll();//prepare result for client
@@ -34,12 +34,12 @@ function executeQuerySelect($query){
  * @param $query
  * @return bool|null : $statement->execute() returne true is the insert was successful
  */
-function executeQueryInsert($query){
+function executeQueryInsert($query)
+{
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
-    if ($dbConnexion != null)
-    {
+    if ($dbConnexion != null) {
         $statement = $dbConnexion->prepare($query);//prepare query
         $queryResult = $statement->execute();//execute query
     }
@@ -52,7 +52,8 @@ function executeQueryInsert($query){
  * @return PDO|null
  * Source : http://php.net/manual/en/pdo.construct.php
  */
-function openDBConnexion (){
+function openDBConnexion()
+{
     $tempDbConnexion = null;
 
     $sqlDriver = 'mysql';
@@ -64,10 +65,9 @@ function openDBConnexion (){
     $userPwd = '123qweasD$';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;
 
-    try{
+    try {
         $tempDbConnexion = new PDO($dsn, $userName, $userPwd);
-    }
-    catch (PDOException $exception) {
+    } catch (PDOException $exception) {
         echo 'Connection failed: ' . $exception->getMessage();
     }
     return $tempDbConnexion;

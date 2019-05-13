@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="View" pattern="file[Code]:view//*&amp;&amp;!file[Code]:view/content//*&amp;&amp;!file[Code]:view/custo//*" />
+</component>

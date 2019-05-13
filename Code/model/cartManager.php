@@ -18,7 +18,8 @@
  * @return array : The full cart after adding the new leasing
  */
 
-function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
+function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays)
+{
     //Doesn't let the user user value under 1
     if ($qtyOfSnowsToAdd > 0 and $howManyLeasingDays > 0) {
         $alreadyExist = false;
@@ -44,9 +45,10 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
             $cartUpdated = $currentCartArray;
         }
         return $cartUpdated;
-    }else{
+    } else {
         //error message
         echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+        return false;
     }
 }
 
