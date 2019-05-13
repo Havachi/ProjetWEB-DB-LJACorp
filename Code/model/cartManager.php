@@ -21,30 +21,36 @@
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays)
 {
     //Doesn't let the user user value under 1
-    if ($qtyOfSnowsToAdd > 0 and $howManyLeasingDays > 0) {
-        $alreadyExist = false;
-        $cartUpdated = array();
-        if ($currentCartArray != null) {
-            $cartUpdated = $currentCartArray;
-        }
-        //Verification if the code and leasing days are the some on one of every item in cart
-        foreach ($currentCartArray as $key => &$cart) {
-            if ($snowCodeToAdd == $cart['code']) {
-                if ($howManyLeasingDays == $cart['nbD']) {
-                    $tempqty = $cart['qty'];
-                    $cart['qty'] = $tempqty + $qtyOfSnowsToAdd;
-                    $alreadyExist = true;
+    if ($qtyOfSnowsToAdd > 0) {
+        if ($howManyLeasingDays > 0) {
+            $alreadyExist = false;
+            $cartUpdated = array();
+            if ($currentCartArray != null) {
+                $cartUpdated = $currentCartArray;
+            }
+            //Verification if the code and leasing days are the some on one of every item in cart
+            foreach ($currentCartArray as $key => &$cart) {
+                if ($snowCodeToAdd == $cart['code']) {
+                    if ($howManyLeasingDays == $cart['nbD']) {
+                        $tempqty = $cart['qty'];
+                        $cart['qty'] = $tempqty + $qtyOfSnowsToAdd;
+                        $alreadyExist = true;
 
+                    }
                 }
             }
-        }
-        if (!$alreadyExist) {
-            $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'qty' => $qtyOfSnowsToAdd, 'nbD' => $howManyLeasingDays);
-            array_push($cartUpdated, $newSnowLeasing);
+            if (!$alreadyExist) {
+                $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'qty' => $qtyOfSnowsToAdd, 'nbD' => $howManyLeasingDays);
+                array_push($cartUpdated, $newSnowLeasing);
+            } else {
+                $cartUpdated = $currentCartArray;
+            }
+            return $cartUpdated;
         } else {
-            $cartUpdated = $currentCartArray;
+            //error message
+            echo "Nombre de jours trop élevée ou inférieure à 1.";
+            return false;
         }
-        return $cartUpdated;
     } else {
         //error message
         echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
@@ -54,17 +60,17 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
 
 /**
  * This code return the Quantity of a snow in the cart
- *
  * @param $currentCartArray
  * @param $snowCode
- * @return if the snowcode is valid and is present in the cart, return the quantity of snow
- * @return return 0 if the snow isn't in the cart of the snow code isn't valid.
+ * @return int: if the snowcode is valid and is present in the cart, return the quantity of snow
+ * @return 0  : return 0 if the snow isn't in the cart of the snow code isn't valid.
  */
-function getSnowQtyInCart($currentCartArray, $snowCode){
-    foreach ($currentCartArray as $key => $cart){
-        if($snowCode == $cart['code']){
+function getSnowQtyInCart($currentCartArray, $snowCode)
+{
+    foreach ($currentCartArray as $key => $cart) {
+        if ($snowCode == $cart['code']) {
             $snowQty = $cart['Qty'];
-        }else{
+        } else {
             $snowQty = 0;
         }
     }
@@ -74,4 +80,3 @@ function getSnowQtyInCart($currentCartArray, $snowCode){
 //array_push() https://www.php.net/manual/en/function.array-push.php
 //array_search
 //unset
-
