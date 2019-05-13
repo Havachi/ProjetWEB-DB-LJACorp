@@ -40,6 +40,23 @@ function getASnow($snow_code){
     return $snowResults;
 }
 
+/**
+ * This function recover the quantity of snow in stock from the database.
+ * @param $snowCode : The unique code of the snow
+ * @return array : if the snow exist
+ */
+function getSnowQty($snowCode){
+    $strSep = '\'';
+    $snowQty = 0;
+    $query = "SELECT qtyAvailable FROM snows WHERE code=".$strSep.$snowCode.$strSep;
+    require_once 'model/dbConnector.php';
+    $snowQty =executeQuerySelect($query);
+    return $snowQty;
+}
+
+
+//<editor-fold desc="Temporarly Unused Function">
+/* Unused function
 function addSnowInDB($snowValues){
     $strSep = '\'';
 
@@ -56,10 +73,5 @@ function addSnowInDB($snowValues){
     executeQueryInsert($query);
 
 }
-function getSnowQty($snowCode){
-    $strSep = '\'';
-    $query = "SELECT qtyAvailable FROM snows WHERE code=".$strSep.$snowCode.$strSep;
-    require_once 'model/dbConnector.php';
-    $snowQty =executeQuerySelect($query);
-    return $snowQty;
-}
+*/
+//</editor-fold>

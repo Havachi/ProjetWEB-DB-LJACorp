@@ -4,18 +4,18 @@
  * Project  : 151_2019_code
  * Created  : 04.04.2019 - 18:48
  *
- * Last update :    [01.12.2018 author]
- *                  [add $logName in function setFullPath]
+ * Last update :    [01.12.2018 Alessandro Rossi]
+ *
  * Git source  :    [link]
  */
 
 /**
  * This function add a new item in the cart
- * @param $currentCartArray
- * @param $snowCodeToAdd
- * @param $qtyOfSnowsToAdd
- * @param $howManyLeasingDays
- * @return array
+ * @param $currentCartArray : The full cart array before adding the new leasing
+ * @param $snowCodeToAdd : The unique code of the snow to add
+ * @param $qtyOfSnowsToAdd : The quantity of snow that the customer choose
+ * @param $howManyLeasingDays : The number of day of leasing that the customer choose
+ * @return array : The full cart after adding the new leasing
  */
 
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
