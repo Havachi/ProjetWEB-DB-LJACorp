@@ -52,6 +52,24 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
     }
 }
 
+/**
+ * This code return the Quantity of a snow in the cart
+ *
+ * @param $currentCartArray
+ * @param $snowCode
+ * @return if the snowcode is valid and is present in the cart, return the quantity of snow
+ * @return return 0 if the snow isn't in the cart of the snow code isn't valid.
+ */
+function getSnowQtyInCart($currentCartArray, $snowCode){
+    foreach ($currentCartArray as $key => $cart){
+        if($snowCode == $cart['code']){
+            $snowQty = $cart['Qty'];
+        }else{
+            $snowQty = 0;
+        }
+    }
+    return $snowQty;
+}
 //in_array https://www.php.net/manual/en/function.in-array.php
 //array_push() https://www.php.net/manual/en/function.array-push.php
 //array_search
