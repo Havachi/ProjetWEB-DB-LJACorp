@@ -17,6 +17,10 @@ ob_start();
 ?>
 <h2>Demande de location</h2>
 <article>
+    <?php if (isset($_GET["qty"])){
+        echo "<h5 class='text-info'>Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock</h5>";
+    }
+    ?>
     <h4>Votre choix</h4>
     <table class="table">
         <tr>

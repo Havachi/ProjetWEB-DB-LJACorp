@@ -171,24 +171,21 @@ function snowLeasingRequest($snowCode){
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
     $cartArrayTemp = array();
-    //test quantity
-    require_once "model/snowsManager.php";
-    $qty = getSnowQty($snowCode);
-    if(($snowLocationRequest['inputQuantity']>$qty)||$snowLocationRequest<=0){
-        $_GET['qty'] = true;
-        require "view/snowLeasingRequest.php";
-    } else {
         if (($snowLocationRequest) AND ($snowCode)) {
             if (isset($_SESSION['cart'])) {
                 $cartArrayTemp = $_SESSION['cart'];
             }
             require "model/cartManager.php";
             $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
-            //TODO 24
-            $_SESSION['cart'] = $cartArrayTemp;
-        }
-        $_GET['action'] = "displayCart";
-        displayCart();
+            if($cartArrayTemp!= null || $cartArrayTemp != false){
+                $_SESSION['cart'] = $cartArrayTemp;
+                $_GET['action'] = 'displayCart';
+                require "view/cart.php";
+            }
+            else {
+                $_GET['qty'] = true;
+                require "view/snowLeasingRequest.php";
+            }
     }
 }
 /**
