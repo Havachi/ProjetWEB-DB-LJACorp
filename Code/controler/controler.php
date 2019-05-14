@@ -212,3 +212,11 @@ function deleteCartRequest($line){
     }
 }
 //endregion
+
+
+/**
+ * Function for test
+ */
+function test(){
+
+}
