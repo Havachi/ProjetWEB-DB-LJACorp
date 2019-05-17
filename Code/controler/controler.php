@@ -138,12 +138,9 @@ function displaySnows(){
 
 /**
  * This function is designed to get only one snow results (for aSnow view)
- * @param none
+ * @param $snow_code - Snow ID
  */
 function displayASnow($snow_code){
-    if (isset($registerRequest['inputUserEmailAddress'])){
-        //TODO
-    }
     require_once "model/snowsManager.php";
     $snowsResults= getASnow($snow_code);
     require "view/aSnow.php";
@@ -158,10 +155,16 @@ function displayCart(){
 
 
 function snowLeasingRequest($snowCode){
-     require "model/snowsManager.php";
-     $snowsResults = getASnow($snowCode);
-     $_GET['action'] = "snowLeasingRequest";
-     require "view/snowLeasingRequest.php";
+    if(isset($_SESSION['userType'])){
+        require "model/snowsManager.php";
+        $snowsResults = getASnow($snowCode);
+        $_GET['action'] = "snowLeasingRequest";
+        require "view/snowLeasingRequest.php";
+    } else {
+        $_GET['action'] = "login";
+        $_GET['notlog'] = TRUE;
+        require "view/login.php";
+    }
 }
 
 /**
