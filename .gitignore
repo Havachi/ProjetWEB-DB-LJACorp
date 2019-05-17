@@ -1,11 +1,4 @@
-
-Code/.idea/workspace.xml
-Code/.idea/vcs.xml
-Code/.idea/sqldialects.xml
-Code/.idea/php.xml
-Code/.idea/modules.xml
-Code/.idea/misc.xml
-Code/.idea/dataSources/cc34d107-0937-4e45-87f6-c39570b2f1d8.xml
-Code/.idea/dataSources.xml
-Code/.idea/dataSources.local.xml
-Code/.idea/Code.iml
+.idea
+.idea/
+.idea/*
+.idea/*/3
