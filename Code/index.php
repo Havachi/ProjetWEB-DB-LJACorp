@@ -41,6 +41,11 @@ if (isset($_GET['action'])) {
       case 'displayCart':
           displayCart();
           break;
+      case 'deleteCartRequest':
+          deleteCartRequest($_GET['line']);
+          break;
+      case 'test':
+          test();
       default :
           home();
   }
