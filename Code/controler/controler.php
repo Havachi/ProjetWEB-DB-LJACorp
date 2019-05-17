@@ -1,18 +1,18 @@
 <?php
 /**
- * This php file is designed to manage all operation regarding snow's management
+ * This php file is designed to manage all operation regarding snow's, users and cart management
  * Author   : pascal.benzonana@cpnv.ch
- * Project  : 151
+ * Project  : Projet WEB + BDD
  * Created  : 18.02.2019 - 21:40
  *
- * Last update :    19.02.2019 PBA
- *                  add function add to cart
- * Source       :   git
+ * Last update :    17.05.2019 LRD
+ *                  Modified function snowLeasingRequest
+ * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
+
 /**
  * This function is designed to redirect the user to the home page (depending on the action received by the index)
  */
-
 function home(){
     $_GET['action'] = "home";
     require "view/home.php";
@@ -93,6 +93,7 @@ function createSession($userEmailAddress){
 
 /**
  * This function is designed to manage logout request
+ * @param -
  */
 function logout(){
     $_SESSION = array();
@@ -106,8 +107,7 @@ function logout(){
 //region snows management
 /**
  * This function is designed to display Snows
- * There are two different view available.
- * One for the seller, an other one for the customer.
+ * @param -
  */
 function displaySnows(){
     if (isset($_POST['resetCart'])) {
@@ -148,14 +148,21 @@ function displayASnow($snow_code){
 //endregion
 
 //region Cart Management
+/**
+ * This function is designed to redirect the user to his cart
+ * @param -
+ */
 function displayCart(){
     $_GET['action'] = "cart";
     require "view/cart.php";
 }
 
-
+/**
+ * This fucntion is designed to redirect the user to the leasing request form
+ * @param $snowCode - Snow ID
+ */
 function snowLeasingRequest($snowCode){
-    if(isset($_SESSION['userType'])){
+    if(isset($_SESSION['userEmailAddress'])){
         require "model/snowsManager.php";
         $snowsResults = getASnow($snowCode);
         $_GET['action'] = "snowLeasingRequest";
@@ -193,7 +200,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 }
 /**
  *This function is designed to delete the selected snow in the cart
- * @param $line
+ * @param $line - Which line of the user's cart the snow was in
 */
 function deleteCartRequest($line){
     if (isset($line)){
@@ -215,11 +222,3 @@ function deleteCartRequest($line){
     }
 }
 //endregion
-
-
-/**
- * Function for test
- */
-function test(){
-
-}
