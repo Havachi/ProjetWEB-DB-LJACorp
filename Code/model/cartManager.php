@@ -20,6 +20,7 @@
  * @param $qtyOfSnowsToAdd : The quantity of snow that the customer choose
  * @param $howManyLeasingDays : The number of day of leasing that the customer choose
  * @return array : The full cart after adding the new leasing
+ * @return False : The value entered isn't valid, too big or < 0
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 
 
@@ -27,32 +28,39 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
 {
     require_once "model/snowsManager.php";
     $stockQty = getSnowQty($snowCodeToAdd);
-    //Doesn't let the user user value under 1
-    if ($qtyOfSnowsToAdd > 0) {
-        if ($howManyLeasingDays > 0) {
-            if ($stockQty > $qtyOfSnowsToAdd) {
-                $alreadyExist = false;
-                $cartUpdated = array();
-                if ($currentCartArray != null) {
-                    $cartUpdated = $currentCartArray;
-                }//Verification if the code and leasing days are the some on one of every item in cart
-                foreach ($currentCartArray as $key => &$cart) {
-                    if ($snowCodeToAdd == $cart['code']) {
-                        if ($howManyLeasingDays == $cart['nbD']) {
-                            $tempqty = $cart['qty'];
-                            $cart['qty'] = $tempqty + $qtyOfSnowsToAdd;
-                            $alreadyExist = true;
+    $inCartQty = getSnowQtyInCart($currentCartArray,$snowCodeToAdd);
 
+    if (!$inCartQty + $qtyOfSnowsToAdd > $stockQty) {//Doesn't let the user user value under 1
+        if ($qtyOfSnowsToAdd > 0) {
+            if ($howManyLeasingDays > 0) {
+                if ($stockQty > $qtyOfSnowsToAdd) {
+                    $alreadyExist = false;
+                    $cartUpdated = array();
+                    if ($currentCartArray != null) {
+                        $cartUpdated = $currentCartArray;
+                    }//Verification if the code and leasing days are the some on one of every item in cart
+                    foreach ($currentCartArray as $key => &$cart) {
+                        if ($snowCodeToAdd == $cart['code']) {
+                            if ($howManyLeasingDays == $cart['nbD']) {
+                                $tempqty = $cart['qty'];
+                                $cart['qty'] = $tempqty + $qtyOfSnowsToAdd;
+                                $alreadyExist = true;
+
+                            }
                         }
                     }
-                }
-                if (!$alreadyExist) {
-                    $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'qty' => $qtyOfSnowsToAdd, 'nbD' => $howManyLeasingDays);
-                    array_push($cartUpdated, $newSnowLeasing);
+                    if (!$alreadyExist) {
+                        $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'qty' => $qtyOfSnowsToAdd, 'nbD' => $howManyLeasingDays);
+                        array_push($cartUpdated, $newSnowLeasing);
+                    } else {
+                        $cartUpdated = $currentCartArray;
+                    }
+                    return $cartUpdated;
                 } else {
-                    $cartUpdated = $currentCartArray;
+                    //error message
+                    //echo "Nombre de jours trop élevée ou inférieure à 1.";
+                    return false;
                 }
-                return $cartUpdated;
             } else {
                 //error message
                 //echo "Nombre de jours trop élevée ou inférieure à 1.";
@@ -60,12 +68,12 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
             }
         } else {
             //error message
-            //echo "Nombre de jours trop élevée ou inférieure à 1.";
+            //echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
             return false;
         }
     } else {
         //error message
-        //echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+        //echo "Quantité trop élevée, Vérifiez la disponibilité du stock";
         return false;
     }
 }
