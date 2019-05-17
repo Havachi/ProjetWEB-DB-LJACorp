@@ -1,12 +1,16 @@
 <?php
 /**
- * Author   : nicolas.glassey@cpnv.ch
- * Project  : dbConnector
- * Created  : 28.01.2019 - 20:13
+ *|File Info|
  *
- * Last update :    [01.12.2018 author]
- *                  [add $logName in function setFullPath]
- * Git source  :    [link]
+ *   /-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-\
+ *  | Author   : Glassey Nicolas                                                         |
+ *  | Project  : ProjetWEB-DB-LJACorp                                                    |
+ *  | Created  : [DATE] - [TIME]                                                         |
+ *  |                                                                                    |
+ *  | Last update :    [DATE]                                                            |
+ *  |                                                                                    |
+ *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                 |
+ *   \-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-/
  */
 
 /**
