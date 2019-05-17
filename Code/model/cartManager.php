@@ -30,7 +30,8 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
     $stockQty = getSnowQty($snowCodeToAdd);
     $inCartQty = getSnowQtyInCart($currentCartArray,$snowCodeToAdd);
 
-    if (!$inCartQty + $qtyOfSnowsToAdd > $stockQty) {//Doesn't let the user user value under 1
+    if ($inCartQty + $qtyOfSnowsToAdd < $stockQty) {
+        //Doesn't let the user user value under 1
         if ($qtyOfSnowsToAdd > 0) {
             if ($howManyLeasingDays > 0) {
                 if ($stockQty > $qtyOfSnowsToAdd) {
