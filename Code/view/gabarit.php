@@ -52,6 +52,7 @@
     <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
 
     <link href="view/content/styles/custom.css" rel="stylesheet" type="text/css" />
+    <link href="view/custo/LJACustom.css" rel="stylesheet" type="text/css" />
 </head>
 <body id="pageBody">
 
