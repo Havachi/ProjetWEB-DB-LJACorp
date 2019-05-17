@@ -162,7 +162,7 @@ function displayCart(){
  * @param $snowCode - Snow ID
  */
 function snowLeasingRequest($snowCode){
-    if(isset($_SESSION['userType'])){
+    if(isset($_SESSION['userEmailAddress'])){
         require "model/snowsManager.php";
         $snowsResults = getASnow($snowCode);
         $_GET['action'] = "snowLeasingRequest";
