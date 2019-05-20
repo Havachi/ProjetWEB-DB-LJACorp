@@ -158,7 +158,7 @@ function displayCart(){
 }
 
 /**
- * This fucntion is designed to redirect the user to the leasing request form
+ * This function is designed to redirect the user to the leasing request form
  * @param $snowCode - Snow ID
  */
 function snowLeasingRequest($snowCode){
@@ -186,7 +186,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                 $cartArrayTemp = $_SESSION['cart'];
             }
             require "model/cartManager.php";
-            $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
+            $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays'], $_SESSION['cart']);
             if($cartArrayTemp!= null || $cartArrayTemp != false){
                 $_SESSION['cart'] = $cartArrayTemp;
                 $_GET['action'] = 'displayCart';
