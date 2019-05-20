@@ -193,6 +193,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                 require "view/cart.php";
             }
             else {
+                $_GET['code'] = $snowCode;
                 $_GET['qty'] = true;
                 require "view/snowLeasingRequest.php";
             }
