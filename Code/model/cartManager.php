@@ -22,8 +22,6 @@
  * @return array : The full cart after adding the new leasing
  * @return False : The value entered isn't valid, too big or < 0
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-
-
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays)
 {
     require_once "model/snowsManager.php";
@@ -97,6 +95,10 @@ function getSnowQtyInCart($currentCartArray, $snowCode)
     }
     return $snowQty;
 }
+
+
+
+
 //in_array https://www.php.net/manual/en/function.in-array.php
 //array_push() https://www.php.net/manual/en/function.array-push.php
 //array_search
