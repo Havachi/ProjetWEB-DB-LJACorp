@@ -186,7 +186,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                 $cartArrayTemp = $_SESSION['cart'];
             }
             require "model/cartManager.php";
-            $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays'], $_SESSION['cart']);
+            $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
             if($cartArrayTemp!= null || $cartArrayTemp != false){
                 $_SESSION['cart'] = $cartArrayTemp;
                 $_GET['action'] = 'displayCart';
