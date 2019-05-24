@@ -5,24 +5,25 @@
  * Project  : Projet WEB + BDD
  * Created  : 18.02.2019 - 21:40
  *
- * Last update :    17.05.2019 LRD
- *                  Modified function snowLeasingRequest
+ * Last update :    24.05.2019 LRD
+ *                  Add function locationRequest
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 
 /**
  * This function is designed to redirect the user to the home page (depending on the action received by the index)
- */
+ *
 function home(){
     $_GET['action'] = "home";
     require "view/home.php";
 }
 
+/*
 //region users management
 /**
  * This function is designed to manage login request
  * @param $loginRequest containing login fields required to authenticate the user
- */
+ *
 function login($loginRequest){
     //if a login request was submitted
     if (isset($loginRequest['inputUserEmailAddress']) && isset($loginRequest['inputUserPsw'])) {
@@ -51,7 +52,7 @@ function login($loginRequest){
 /**
  * This fonction is designed
  * @param $registerRequest containing result from a register request
- */
+ *
 function register($registerRequest){
     //variable set
     if (isset($registerRequest['inputUserEmailAddress']) && isset($registerRequest['inputUserPsw']) && isset($registerRequest['inputUserPswRepeat'])) {
@@ -83,7 +84,7 @@ function register($registerRequest){
 /**
  * This function is designed to create a new user session
  * @param $userEmailAddress : user unique id
- */
+ *
 function createSession($userEmailAddress){
     $_SESSION['userEmailAddress'] = $userEmailAddress;
     //set user type in Session
@@ -94,7 +95,7 @@ function createSession($userEmailAddress){
 /**
  * This function is designed to manage logout request
  * @param -
- */
+ *
 function logout(){
     $_SESSION = array();
     session_destroy();
@@ -102,13 +103,13 @@ function logout(){
     require "view/home.php";
 }
 //endregion
-
+*/
 
 //region snows management
 /**
  * This function is designed to display Snows
  * @param -
- */
+ *
 function displaySnows(){
     if (isset($_POST['resetCart'])) {
         unset($_SESSION['cart']);
@@ -139,19 +140,20 @@ function displaySnows(){
 /**
  * This function is designed to get only one snow results (for aSnow view)
  * @param $snow_code - Snow ID
- */
+ *
 function displayASnow($snow_code){
     require_once "model/snowsManager.php";
     $snowsResults= getASnow($snow_code);
     require "view/aSnow.php";
 }
+ */
 //endregion
 
 //region Cart Management
 /**
  * This function is designed to redirect the user to his cart
  * @param -
- */
+ *
 function displayCart(){
     $_GET['action'] = "cart";
     require "view/cart.php";
@@ -160,7 +162,7 @@ function displayCart(){
 /**
  * This function is designed to redirect the user to the leasing request form
  * @param $snowCode - Snow ID
- */
+ *
 function snowLeasingRequest($snowCode){
     if(isset($_SESSION['userEmailAddress'])){
         require "model/snowsManager.php";
@@ -178,7 +180,7 @@ function snowLeasingRequest($snowCode){
  * This function designed to manage all request impacting the cart content
  * @param $snowCode
  * @param $snowLocationRequest
- */
+ *
 function updateCartRequest($snowCode, $snowLocationRequest){
     $cartArrayTemp = array();
         if (($snowLocationRequest) AND ($snowCode)) {
@@ -202,7 +204,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 /**
  *This function is designed to delete the selected snow in the cart
  * @param $line - Which line of the user's cart the snow was in
-*/
+*
 function deleteCartRequest($line){
     if (isset($line)){
         array_splice($_SESSION['cart'],$line,1);
@@ -222,4 +224,31 @@ function deleteCartRequest($line){
         }
     }
 }
+ */
 //endregion
+/**
+ *This function is designed to get all snows that are currently in the user's cart to ask for it
+ * @param -
+ *
+function locationRequest(){
+    if(isset($_SESSION['cart'])){
+        if(isset($_SESSION['userType'])){
+            require_once "model/cartManager.php";
+            createLocation($_SESSION['cart'], $_SESSION['userEmailAddress']);
+
+            require "view/location.php";
+        }
+        $_GET["notlog"] = true;
+        require "view/login.php";
+    }
+    $_GET["cartEmpty"] = true;
+}
+
+/**
+ * This function is designed to redirect the user to his/her snows locations
+ * @param -
+ *
+function myLocation(){
+    require "view/location.php";
+}
+ */
