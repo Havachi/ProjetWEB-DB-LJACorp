@@ -151,7 +151,7 @@
                         <p>Nous sommes une équipe de jeunes snowboardeurs qui souhaitons faire découvrir cette discipline à tous les publics.</p>
                         <p>
                             <a href="" title="Terms of Use">Terms of Use</a><br />
-                            <a href="" title="Privacy Policy">Privacy Policy</a><br />
+                            <a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/" title="Privacy Policy">Privacy Policy</a><br />
                             <a href="" title="FAQ">FAQ</a><br />
                             <a href="" title="Sitemap">Sitemap</a>
                         </p>
@@ -168,11 +168,11 @@
                             <span style="text-transform:none;">02/01/2019</span>
                         </p>
                         <p>
-                            <a href="" title="">Paul champion suisse !</a><br />
+                            <a href="https://www.athle.ch/2017/10/31/histoire-paul-martin/" title="">Paul champion suisse !</a><br />
                             <span style="text-transform:none;">19/03/2019</span>
                         </p>
                         <p>
-                            <a href="" title="">VIEW A	LL POSTS</a>
+                            <a href="" title="">VIEW ALL POSTS</a>
                         </p>
                     </div>
 
@@ -196,7 +196,7 @@
                                 <i class="general foundicon-mail icon"></i>
                                 <span class="field">Email :</span>
                                 <br />
-                                <a href="mailto:" title="Email">info@rentasnow.com</a>
+                                <a href="mailto:Non mais ça sert à rien de cliquer ici :D" title="Email">info@examp.le</a>
                             </li>
                             <li>
                                 <i class="general foundicon-home icon" style="margin-bottom:50px"></i>
