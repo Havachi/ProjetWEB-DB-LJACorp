@@ -88,6 +88,10 @@
                                 <?php if(isset($_SESSION['cart'])) :?>
                                     <li><a href="index.php?action=displayCart"><img src="view/content/images/cart.png">  <?=  count($_SESSION['cart']);?> snow(s)</a></li>
                                 <?php endif; ?>
+								<!-- On affiche le tab Vos Locations une fois la session de location active -->
+                                <?php if(isset($_SESSION['VALUEneededWONTworkOTHERWISE'])) :?>
+                                    <li><a href="index.php?action=displayVALUEneededWONTworkOTHERWISE">Vos locations</a></li>
+                                <?php endif; ?>
                             </ul>
                             <!-- on affiche, si la session est active, l'adresse email de l'utilisateur-->
                             <?php if(isset($_SESSION['userEmailAddress'])) :?>
