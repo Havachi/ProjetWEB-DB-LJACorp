@@ -75,6 +75,9 @@ function locationQuery($completeLocationArray){
         $queryResult = executeQueryInsert($locationInserQuery);
         if($queryResult){
             $result = $queryResult;
+        }else{
+            $error = "E121";
+            return $error;
         }
         return $result;
 

@@ -20,7 +20,7 @@
  * @param $qtyOfSnowsToAdd : The quantity of snow that the customer choose
  * @param $howManyLeasingDays : The number of day of leasing that the customer choose
  * @return array : The full cart after adding the new leasing
- * @return False : The value entered isn't valid, too big or < 0
+ * @return Error : The value entered isn't valid, too big or < 0
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays)
 {
@@ -57,23 +57,23 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
                     return $cartUpdated;
                 } else {
                     //error message
-                    //echo "Nombre de jours trop élevée ou inférieure à 1.";
-                    return false;
+                    $error = "E110";
+                    return $error;
                 }
             } else {
                 //error message
-                //echo "Nombre de jours trop élevée ou inférieure à 1.";
-                return false;
+                $error = "E111";
+                return $error;
             }
         } else {
             //error message
-            //echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
-            return false;
+            $error = "E112";
+            return $error;
         }
     } else {
         //error message
-        //echo "Quantité trop élevée, Vérifiez la disponibilité du stock";
-        return false;
+        $error = "E113";
+        return $error;
     }
 }
 
