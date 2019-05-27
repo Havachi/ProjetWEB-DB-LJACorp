@@ -23,6 +23,5 @@ function stockSet($snowCode,$newStock){
     $strSep = '\'';
     $query = "UPDATE snows SET qtyAvailable=".$strSep.$newStock.$strSep." WHERE code=".$strSep.$snowCode.$strSep.";";
     require_once 'model/dbConnector.php';
-    $IDSnow = executeQueryUpdate($query);
-    
+    executeQueryUpdate($query);
 }
