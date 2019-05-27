@@ -22,15 +22,6 @@
  *  flag    = Used to differentiate multiple cart
  * */
 
-//TODOLIST
-//-----------------------------------------------------------
-//TODO Task #54 Traitement de la demande de location
-//TODO Test the query
-//-
-//TODO Séparation des carts
-//TODO envoye individuel des Carts vers la fonction D'insert
-//TODO Check for malformed cart
-//-----------------------------------------------------------
 
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
@@ -38,7 +29,7 @@
  * @param $actualCart The cart of the user, can't be null (at least shouldn't be null)
  * @param $userEmail The user Email Address
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function createLocation($actualCart, $userEmail){
+function createLeasing($actualCart, $userEmail){
     $completeLocationArray = array();
     //UserID extraction
     require_once "model/usersManager.php";
@@ -71,11 +62,6 @@ function createLocation($actualCart, $userEmail){
         }
         locationQuery($completeLocationArray);
 }
-
-
-
-
-
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function insert Loaction in DB
  * @param $completeLocationArray The complete loaction datas
@@ -84,7 +70,7 @@ function locationQuery($completeLocationArray){
 
 
     if(isset($completeLocationArray)){
-        $flag = $completeLocationArray['flag'];
+
 
         foreach ($completeLocationArray as $location){
             $userID  = $location['userID'];
@@ -93,9 +79,10 @@ function locationQuery($completeLocationArray){
             $qtyloc  = $location['qtyLoc'];
             $nbdLoc  = $location['nbdLoc'];
             $strSeparator = '\'';
-            $locationInserQuery = 'INSERT INTO locations (FKUser, FKSnow, DateLoc, QtyLoc, NbDLoc) VALUES (' .$strSeparator.$userID.$strSeparator.$snowID.$strSeparator.$dateLoc.$strSeparator.$qtyloc.$strSeparator.$nbdLoc.$strSeparator.')';
+            $locationInserQuery = 'INSERT INTO locations (FKUser, FKSnow, DateLoc, QtyLoc, NbDLoc) VALUES ('.$strSeparator.$userID.$strSeparator.','.$strSeparator.$snowID.$strSeparator.','.$strSeparator.$dateLoc.$strSeparator.','.$strSeparator.$qtyloc.$strSeparator.','.$strSeparator.$nbdLoc.$strSeparator.')';
             require_once 'model/dbConnector.php';
             executeQueryInsert($locationInserQuery);
         }
     }
 }
+
