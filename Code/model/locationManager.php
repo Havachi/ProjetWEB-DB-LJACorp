@@ -100,3 +100,4 @@ function LeasingRecover($IDloc){
 
     return $completeLocationArray;
 }
+
