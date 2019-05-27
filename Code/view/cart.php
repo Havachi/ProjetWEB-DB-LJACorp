@@ -1,18 +1,13 @@
 <?php
 /**
- * This php file is designed to manage all operation regarding cart's management
- * Author   : pascal.benzonana@cpnv.ch
- * Project  : Code
- * Created  : 23.03.2019 - 21:40
- *
- * Last update :    [24.03.2019 PBA]
- *                  []
- * Source       :   pascal.benzonana
+ * Created by PhpStorm.
+ * Author:			Pascal.BENZONANA 
+ * Date: 			23.03.2019
+ * Last Update :    Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
-
-
-
-$title = 'Rent A Snow - Demande de location';
+ 
+$title = 'Rent A Snow - Panier';
 
 ob_start();
 ?>

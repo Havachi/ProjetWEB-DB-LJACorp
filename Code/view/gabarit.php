@@ -1,13 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Pascal.BENZONANA
- * Date: 08.05.2017
- * Time: 09:16
+ * Author:			Pascal.BENZONANA
+ * Date: 			08.05.2017
  * Last Update :    Nicolas Glassey
  *                  02.03.2019 - add action displaySnows
  *                  11.03.2019 - add ref javascript to customized scripts
+ *					JonasHau
+ *					27.05.2019 - cleared the links and added some redirections
  */
+ 
 ?>
 <!DOCTYPE HTML>
 <html>

@@ -1,16 +1,19 @@
 <?php
-  $title ='Rent A Snow - Login/Logout';
-
-/* This file manages the form used to enable user being authenticated on the platform
- * Title            : login.php
- * Creation         : 28/11/16
- * Author           : pascal.benzonana@cpnv.ch
- * Update           : 31/01/19 - nicolas.glassey@cpnv.ch
- *                              -html5 integration (div vs table, specific users's inputs)
- *                              -login process simplification(type of user is not more asked)
- *                  : 11/03/19 - docs rewrote in english
+/**
+ * Created by PhpStorm.
+ * Author: 			Pascal.BENZONANA 
+ * Date: 			28.11.2016
+ * Last Update:		Nicolas.GLASSEY
+ *                  31.01.2019 - html5 integration (div vs table, specific users's inputs)
+ *                             - login process simplification(type of user is not more asked)
+ *                  11.03.2019 - docs rewrote in english
+ *					Jonas.HAUTIER
+ *					27.05.2019 - Uniformisation des entetes
+ *							   - Mise à jour du titre
  */
 
+$title ='Rent A Snow - Login';
+ 
 ob_start();
 ?>
 <h2>Se connecter</h2>

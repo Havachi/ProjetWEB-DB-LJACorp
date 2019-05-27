@@ -1,12 +1,15 @@
 <?php
-  $title ='Rent A Snow - Login/Logout';
-
-/* This file manages the form used to enable user being register on the platform
- * Title            : register.php
- * Creation         : 12/03/19
- * Author           : nicolas.glassey@cpnv.ch
- * Update           : 31/01/19 - nicolas.glassey@cpnv.ch
+/**
+ * Created by PhpStorm.
+ * Author:			Nicolas.GLASSEY
+ * Date:			12.03.2019
+ * Last Update:		Nicolas.GLASSEY
+ *					31.01.2019 - nicolas.glassey@cpnv.ch
+ *					Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
+ 
+$title ='Rent A Snow - Register';
 
 ob_start();
 ?>

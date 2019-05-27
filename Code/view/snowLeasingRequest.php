@@ -1,16 +1,14 @@
 <?php
 /**
- * This php file is designed to allow users to ask for a snow's rent
- * Author   : pascal.benzonana@cpnv.ch
- * Project  : Code
- * Created  : 22.03.2019 - 18:40
- *
- * Last update :    [24.03.2019 PBA]
- *                  [add Code selected in Get]
- * Source       :   pascal.benzonana
+ * Created by PhpStorm.
+ * Author:			Pascal.BENZONANA
+ * Date:			22.03.2019
+ * Last Update :	Pascal.BENZONANA
+ *					24.03.2019 PBA - add Code selected in Get
+ *					Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
-
-
+ 
 $title = 'Rent A Snow - Demande de location';
 
 ob_start();

@@ -1,14 +1,16 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Pascal.BENZONANA
- * Date: 08.05.2017
- * Time: 09:16
+ * Author:			Pascal.BENZONANA
+ * Date:			08.05.2017
+ * Last Update:		Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
-
+ 
+$title="Rent A Snow";
+ 
 // tampon de flux stocké en mémoire
 ob_start();
-$title="RentASnow - Accueil";
 ?>
 
 <div class="span12" id="divMain">

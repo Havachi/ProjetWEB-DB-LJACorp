@@ -1,15 +1,16 @@
 <?php
 /**
- * Author: Pascal.benzonana@cpnv.ch
- * Project  : snowsSeller.php
- * Created  : 28.01.2019 - 20:13
- *
- * Last update :    [18.02.2019 pba]
- *                  [modele.php splitted]
- * Git source  :    [link]
+ * Created by PhpStorm.
+ * Author:			Pascal.BENZONANA
+ * Date:			28.01.2019
+ * Last update :    Pascal.BENZONANA
+ *					18.02.2019 - modele.php splitted
+ *					Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
-
+ 
 $title="Nos snowboards";
+
 // Tampon de flux stocké en mémoire
 ob_start();
 ?>
