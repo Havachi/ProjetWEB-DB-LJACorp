@@ -1,21 +1,26 @@
 <?php
-/**
- * This php file is designed to manage all operations regarding user's management
- * Author   : nicolas.glassey@cpnv.ch
- * Project  : Code
- * Created  : 31.01.2019 - 18:40
- *
- * Last update :    [01.12.2018 author]
- *                  [add $logName in function setFullPath]
- * Source       :   pascal.benzonana
- */
 
 /**
+ *|File Info|
+ *
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
+ *  | Author   : nicolas.glassey@cpnv.ch                                                                |
+ *  | Project  : ProjetWEB-DB-LJACorp                                                                   |
+ *  | Created  : 31.01.2019 - 18:40                                                                     |
+ *  | Description :    This php file is designed to manage all operations regarding user's management   |                                                                                |
+ *  | Last update :    27.05.2019                                                                       |
+ *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                                |
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
+ */
+
+
+
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to verify user's login
  * @param $userEmailAddress
  * @param $userPsw
  * @return bool : "true" only if the user and psw match the database. In all other cases will be "false".
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function isLoginCorrect($userEmailAddress, $userPsw){
     $result = false;
 
@@ -34,12 +39,12 @@ function isLoginCorrect($userEmailAddress, $userPsw){
     return $result;
 }
 
-/**
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to register a new account
  * @param $userEmailAddress
  * @param $userPsw
  * @return bool|null
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function registerNewAccount($userEmailAddress, $userPsw){
     $result = false;
 
@@ -57,12 +62,13 @@ function registerNewAccount($userEmailAddress, $userPsw){
     return $result;
 }
 
-/**
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to get the type of user
  * For the webapp, it will adapt the behavior of the GUI
  * @param $userEmailAddress
  * @return int (1 = customer ; 2 = seller)
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+
 function getUserType($userEmailAddress){
     $result = 1;//we fix the result to 1 -> customer
 
@@ -78,12 +84,11 @@ function getUserType($userEmailAddress){
     }
     return $result;
 }
-
-/**
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserID from the DB, multiple use
  * @param $userEmailAddress The users Email Address
  * @return The user ID
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserID($userEmailAddress){
     $strSeparator = '\'';
 
