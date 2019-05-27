@@ -66,7 +66,7 @@ function createLeasing($actualCart, $userEmail){
  * This function insert Loaction in DB
  * @param $completeLocationArray The complete loaction datas
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function locationQuery($completeLocationArray){
+function LeasingQuery($completeLocationArray){
 
 
     if(isset($completeLocationArray)){
@@ -86,3 +86,17 @@ function locationQuery($completeLocationArray){
     }
 }
 
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function recover Loction datas in DB
+ * @param $IDloc The location unique ID
+ * @return array
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function LeasingRecover($IDloc){
+    $strSep = '\'';
+    $completeLocationArray = array();
+    $query = "SELECT * FROM locations WHERE IDLoc=" . $strSep . $IDloc . $strSep;
+    require_once 'model/dbConnector.php';
+    $completeLocationArray = executeQuerySelect($query);
+
+    return $completeLocationArray;
+}
