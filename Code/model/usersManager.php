@@ -87,14 +87,14 @@ function getUserType($userEmailAddress){
 function getUserID($userEmailAddress){
     $strSeparator = '\'';
 
-    $getUserIdQuery = 'SELECT UserID FROM users WHERE users.userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+    $getUserIdQuery = 'SELECT IDUser FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
 
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($getUserIdQuery);
 
     if (count($queryResult) == 1){
-        $result = $queryResult[0]['userType'];
+        $result = $queryResult[0]['IDUser'];
     }
     return $result;
 }
