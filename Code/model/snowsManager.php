@@ -58,6 +58,15 @@ function getSnowQty($snowCode)
 }
 
 
+function getSnowID($snowCode){
+    $strSep = '\'';
+    $IDSnow = 0;
+    $query = "SELECT IDSnow FROM snows WHERE code=" . $strSep . $snowCode . $strSep;
+    require_once 'model/dbConnector.php';
+    $IDSnow = executeQuerySelect($query);
+    return $IDSnow[0]['IDSnow'];
+}
+
 //<editor-fold desc="Temporarly Unused Function">
 /* Unused function
 function addSnowInDB($snowValues){
