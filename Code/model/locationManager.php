@@ -1,16 +1,17 @@
 <?php
+
 /**
  *|File Info|
  *
- *   /-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-\
- *  | Author   : Alessandro Rossi                                                                        |
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
+ *  | Author   : Alessandro Rossi                                                        |
  *  | Project  : ProjetWEB-DB-LJACorp                                                    |
- *  | Created  : 24.05.2019 - 8:30                                                         |
+ *  | Created  : 24.05.2019 - 8:30                                                       |
  *  |                                                                                    |
- *  | Last update :    24.05.2019                                                            |
+ *  | Last update :    24.05.2019                                                        |
  *  |                                                                                    |
  *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                 |
- *   \-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-/
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
  */
 
 /*  $completeLocationArray excepted values
@@ -57,7 +58,7 @@ function createLeasing($actualCart, $userEmail){
                 "flag" => $flag
             );
             array_push($completeLocationArray, $tempLocation);
-            $tempLocation = array();
+
             $flag++;
         }
         locationQuery($completeLocationArray);

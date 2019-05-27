@@ -1,25 +1,24 @@
 <?php
 /**
  *|File Info|
- *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-\
- * Author   : nicolas.glassey@cpnv.ch                                                 |
- * Project  : ProjetWEB+BD                                                            |
- * Created  : 04.04.2019 - 18:48                                                      |
- *                                                                                    |
- * Last update :    [15.05.2019 Alessandro Rossi]                                     |
- *                                                                                    |
- * Git source  :    [link]                                                            |
- *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-/
+ *
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
+ *  | Author   : Alessandro Rossi                                                        |
+ *  | Project  : ProjetWEB-DB-LJACorp                                                    |
+ *  | Created  : 04.04.2019 - 18:48                                                      |
+ *  |                                                                                    |
+ *  | Last update :    [27.05.2019 Louis Richard]                                        |
+ *  |                                                                                    |
+ *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                 |
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
  */
-
 
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This code return the Quantity of a snow in the cart
  * @param $currentCartArray
  * @param $snowCode
- * @return int: if the $snowCode is valid and is present in the cart, return the quantity of snow
- * @return 0  : return 0 if the snow isn't in the cart of the snow code isn't valid.
+ * @return int
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnowQtyInCart($currentCartArray, $snowCode)
 {

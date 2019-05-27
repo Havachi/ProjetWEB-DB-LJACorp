@@ -25,56 +25,59 @@ function displayCart(){
  * @param $snowLocationRequest
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
-    $cartArrayTemp = array();
-    if (($snowLocationRequest) AND ($snowCode)) {
-        if (isset($_SESSION['cart'])) {
-            $cartArrayTemp = $_SESSION['cart'];
+    if(isset($_SESSION['cart'])) {
+        $cartArrayTemp = $_SESSION['cart'];
+        if($cartArrayTemp!=null || $cartArrayTemp!=array()){
+            require_once "model/snowsManager.php";
+            $stockQty = getSnowQty($snowCode);
+            require_once "model/cartManager.php";
+            $inCartQty = getSnowQtyInCart($cartArrayTemp, $snowCode);
         }
-        require_once "model/snowsManager.php";
-        $stockQty = getSnowQty($snowCode);
-        require_once "model/cartManager.php";
-        $inCartQty = getSnowQtyInCart($cartArrayTemp,$snowCode);
 
-        if ($inCartQty + $snowLocationRequest['inputQuantity'] < $stockQty) {
-            //Doesn't let the user user value under 1
-            if ($snowLocationRequest['inputQuantity'] > 0) {
-                if ($snowLocationRequest['inputDays'] > 0) {
-                    if ($stockQty > $snowLocationRequest['inputQuantity']) {
-                        $alreadyExist = false;
-                        if ($cartArrayTemp != null) {
-                            foreach ($cartArrayTemp as $key => &$cart) {
-                                if ($snowCode == $cart['code']) {
-                                    if ($snowLocationRequest['inputDays'] == $cart['nbD']) {
-                                        $tempqty = $cart['qty'];
-                                        $cart['qty'] = $tempqty + $snowLocationRequest['inputQuantity'];
-                                        $alreadyExist = true;
+    }
+    if(($snowLocationRequest) AND ($snowCode)){
+        if($inCartQty + $snowLocationRequest['inputQuantity'] <= $stockQty){
+            if($snowLocationRequest['inputQuantity'] > 0){
+                if($snowLocationRequest['inputDays'] > 0){
+                    if($snowLocationRequest['inputQuantity'] < $stockQty){
+                        if(isset($cartArrayTemp) && $cartArrayTemp != NULL){
+                            if(isset($_SESSION['cart'])) {
+                                foreach ($cartArrayTemp as $key => &$cart) {
+                                    if ($snowCode == $cart['code']) {
+                                        if ($snowLocationRequest['inputDays'] == $cart['nbD']) {
+                                            $tempqty = $cart['qty'];
+                                            $cart['qty'] = $tempqty + $snowLocationRequest['inputQuantity'];
+                                        }
                                     }
-                                }
-                            } //End Foreach
-                            if (!$alreadyExist) {
-                                $newSnowLeasing = array('code' => $snowCode, 'dateD' => Date("d-m-y"), 'qty' => $snowLocationRequest['inputQuantity'], 'nbD' => $snowLocationRequest['inputDays']);
-                                array_push($cartArrayTemp, $newSnowLeasing);
-                            } else {
-                                $cartArrayTemp = $_SESSION['cart'];
+                                } #End foreach
                             }
+                        } else { //current cart is empty
+                            $cartArrayTemp = array(
+                                'code' => $snowCode,
+                                'dateD' => Date("d-m-y"),
+                                'qty' => $snowLocationRequest['inputQuantity'],
+                                'nbD' => $snowLocationRequest['inputDays']
+                            );
+                            $_SESSION['cart'] = array();
                             array_push($_SESSION['cart'], $cartArrayTemp);
+                            require "view/cart.php";
                         }
-                    } else { //Quantité en stock < quantité demandée
+                    } else { //Qty too high
                         $_GET['code'] = $snowCode;
                         $_GET['qty'] = true;
                         require "view/snowLeasingRequest.php";
-                    } //End else
-                } else {
+                    }
+                } else { //nbDays too low
                     $_GET['code'] = $snowCode;
                     $_GET['days'] = true;
                     require "view/snowLeasingRequest.php";
-                } //End else
-            } else {
+                }
+            } else { //Qty too low
                 $_GET['code'] = $snowCode;
                 $_GET['qty'] = true;
                 require "view/snowLeasingRequest.php";
-            } //End else
-        } else {
+            }
+        } else { //Qty too high
             $_GET['code'] = $snowCode;
             $_GET['qty'] = true;
             require "view/snowLeasingRequest.php";
