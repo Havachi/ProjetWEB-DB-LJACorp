@@ -1,15 +1,16 @@
 <?php
 /**
  *|File Info|
- *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-\
- * Author   : nicolas.glassey@cpnv.ch                                                 |
- * Project  : ProjetWEB+BD                                                            |
- * Created  : 04.04.2019 - 18:48                                                      |
- *                                                                                    |
- * Last update :    [15.05.2019 Alessandro Rossi]                                     |
- *                                                                                    |
- * Git source  :    [link]                                                            |
- *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-/
+ *
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
+ *  | Author   : Alessandro Rossi                                                        |
+ *  | Project  : ProjetWEB-DB-LJACorp                                                    |
+ *  | Created  : 04.04.2019 - 8:40                                                       |
+ *  |                                                                                    |
+ *  | Last update :    27.05.2019                                                        |
+ *  |                                                                                    |
+ *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                 |
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
  */
 
 
@@ -20,7 +21,6 @@
  * @param $qtyOfSnowsToAdd : The quantity of snow that the customer choose
  * @param $howManyLeasingDays : The number of day of leasing that the customer choose
  * @return array : The full cart after adding the new leasing
- * @return Error : The value entered isn't valid, too big or < 0
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays)
 {

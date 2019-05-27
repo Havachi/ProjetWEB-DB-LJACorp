@@ -62,8 +62,9 @@ if (isset($_GET['action'])) {
           mylocation();
           break;
       case 'test':
-          require_once "controler/controler.php";
-          test();
+          require_once "model/locationManager.php";
+          createLocation($_SESSION['cart'],"user@user.ch");
+
       default :
           require "view/home.php";
   }
