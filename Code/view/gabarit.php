@@ -160,7 +160,7 @@
                     <div class="span3" id="footerArea2">
                         <h3>Dernière nouveautés</h3>
                         <p>
-                            <a href="index.php?action=snowLeasingRequest&code=B101" title="">Le Burton B101 est à disposition</a><br />
+                            <a href="index.php?action=displayASnow&code=B101" title="">Le Burton B101 est à disposition</a><br />
                             <span style="text-transform:none;">15/05/2019</span>
                         </p>
                         <p>
