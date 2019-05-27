@@ -58,7 +58,7 @@ function createLeasing($actualCart, $userEmail){
                 "flag" => $flag
             );
             array_push($completeLocationArray, $tempLocation);
-            $tempLocation = array();
+
             $flag++;
         }
         locationQuery($completeLocationArray);

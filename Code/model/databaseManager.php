@@ -17,11 +17,14 @@
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function remove n item in stock, this append when a leasing is completed
  * @param $snowCode Which snow should be modified
- * @return
- **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+ * @param $newStock
+ * @return array
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ */
 function stockSet($snowCode,$newStock){
     $strSep = '\'';
     $query = "UPDATE snows SET qtyAvailable=".$strSep.$newStock.$strSep." WHERE code=".$strSep.$snowCode.$strSep.";";
     require_once 'model/dbConnector.php';
-    executeQueryUpdate($query);
+    $queryResult=executeQueryUpdate($query);
+    return $queryResult;
 }

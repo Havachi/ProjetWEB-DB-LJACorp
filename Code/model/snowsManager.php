@@ -68,8 +68,8 @@ function getSnowQty($snowCode)
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get the IDSnow in database from the snow code
- * @param
- * @return
+ * @param $snowCode The snow code
+ * @return array
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnowID($snowCode){
     $strSep = '\'';
