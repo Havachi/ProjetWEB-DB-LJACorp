@@ -20,13 +20,13 @@ ob_start();
             <p>Pour vous inscrire chez Snows, nous vous prions de renseigner les champs suivants:</p>
             <div class="container">
                 <label for="userEmail"><b>Username</b></label>
-                <input type="email" placeholder="Enter email address" name="inputUserEmailAddress" required>
+                <input type="email" placeholder="Enter your email address" name="inputUserEmailAddress" required>
 
                 <label for="userPsw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="inputUserPsw" required>
+                <input type="password" placeholder="Enter your password" name="inputUserPsw" required>
 
                 <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="inputUserPswRepeat" required>
+                <input type="password" placeholder="Repeat your password" name="inputUserPswRepeat" required>
 
                 <p>En soumettant votre demande de compte, vous validez les conditions générales d'utilisation. <a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/">CGU et vie privée</a>.</p>
                 <button type="submit" class="btn btn-default">Register</button>

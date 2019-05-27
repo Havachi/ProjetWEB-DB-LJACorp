@@ -64,8 +64,8 @@
         <div class="row-fluid">
             <div class="span12">
                 <div id="divLogo" class="pull-left">
-                    <a href="index.php" id="divSiteTitle">Rent A Snow</a><br />
-                    <a href="index.php" id="divTagLine">La glisse à moindre coût</a>
+                    <a href="index.php?action=home" id="divSiteTitle">Rent A Snow</a><br />
+                    <a href="index.php?action=home" id="divTagLine">La glisse à moindre coût</a>
                 </div>
                 <div id="divMenuRight" class="pull-right">
                     <div class="navbar">
@@ -87,6 +87,10 @@
                                 <?php endif; ?>
                                 <?php if(isset($_SESSION['cart'])) :?>
                                     <li><a href="index.php?action=displayCart"><img src="view/content/images/cart.png">  <?=  count($_SESSION['cart']);?> snow(s)</a></li>
+                                <?php endif; ?>
+								<!-- On affiche le tab Vos Locations une fois la session de location active -->
+                                <?php if(isset($_SESSION['VALUEneededWONTworkOTHERWISE'])) :?>
+                                    <li><a href="index.php?action=displayVALUEneededWONTworkOTHERWISE">Vos locations</a></li>
                                 <?php endif; ?>
                             </ul>
                             <!-- on affiche, si la session est active, l'adresse email de l'utilisateur-->
@@ -146,29 +150,29 @@
                         <h3>Notre magasin</h3>
                         <p>Nous sommes une équipe de jeunes snowboardeurs qui souhaitons faire découvrir cette discipline à tous les publics.</p>
                         <p>
-                            <a href="#" title="Terms of Use">Terms of Use</a><br />
-                            <a href="#" title="Privacy Policy">Privacy Policy</a><br />
-                            <a href="#" title="FAQ">FAQ</a><br />
-                            <a href="#" title="Sitemap">Sitemap</a>
+                            <a href="" title="Terms of Use">Terms of Use</a><br />
+                            <a href="https://termsfeed.com/blog/privacy-policies-vs-terms-conditions/" title="Privacy Policy">Privacy Policy</a><br />
+                            <a href="" title="FAQ">FAQ</a><br />
+                            <a href="" title="Sitemap">Sitemap</a>
                         </p>
                     </div>
 
                     <div class="span3" id="footerArea2">
                         <h3>Dernière nouveautés</h3>
                         <p>
-                            <a href="#" title="">Le Burton B221 est à disposition</a><br />
+                            <a href="index.php?action=displaySnows" title="">Le Burton B221 est à disposition</a><br />
                             <span style="text-transform:none;">15/05/2019</span>
                         </p>
                         <p>
-                            <a href="#" title="">Les horaires ont été étendus</a><br />
+                            <a href="" title="">Les horaires ont été étendus</a><br />
                             <span style="text-transform:none;">02/01/2019</span>
                         </p>
                         <p>
-                            <a href="#" title="">Paul champion suisse !</a><br />
+                            <a href="https://www.athle.ch/2017/10/31/histoire-paul-martin/" title="">Paul champion suisse !</a><br />
                             <span style="text-transform:none;">19/03/2019</span>
                         </p>
                         <p>
-                            <a href="#" title="">VIEW ALL POSTS</a>
+                            <a href="" title="">VIEW ALL POSTS</a>
                         </p>
                     </div>
 
@@ -192,7 +196,7 @@
                                 <i class="general foundicon-mail icon"></i>
                                 <span class="field">Email :</span>
                                 <br />
-                                <a href="mailto:info@rentasnow.com" title="Email">info@rentasnow.com</a>
+                                <a href="mailto:Non mais ça sert à rien de cliquer ici :D" title="Email">info@examp.le</a>
                             </li>
                             <li>
                                 <i class="general foundicon-home icon" style="margin-bottom:50px"></i>
@@ -212,10 +216,10 @@
                     <div class="span12">
                         <p class="copyright">Copyright © 2019 Rent A Snow. All Rights Reserved.</p>
                         <p class="social_bookmarks">
-                            <a href="#"><i class="social foundicon-facebook"></i> Facebook</a>
+                            <a href=""><i class="social foundicon-facebook"></i> Facebook</a>
                             <a href=""><i class="social foundicon-twitter"></i> Twitter</a>
-                            <a href="#"><i class="social foundicon-pinterest"></i> Pinterest</a>
-                            <a href="#"><i class="social foundicon-rss"></i> Rss</a>
+                            <a href=""><i class="social foundicon-pinterest"></i> Pinterest</a>
+                            <a href=""><i class="social foundicon-rss"></i> Rss</a>
                         </p>
                     </div>
                 </div>

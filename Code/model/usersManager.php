@@ -78,3 +78,23 @@ function getUserType($userEmailAddress){
     }
     return $result;
 }
+
+/**
+ * This function get and return the UserID from the DB, multiple use
+ * @param $userEmailAddress The users Email Address
+ * @return The user ID
+ */
+function getUserID($userEmailAddress){
+    $strSeparator = '\'';
+
+    $getUserIdQuery = 'SELECT UserID FROM users WHERE users.userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+
+    $queryResult = executeQuerySelect($getUserIdQuery);
+
+    if (count($queryResult) == 1){
+        $result = $queryResult[0]['userType'];
+    }
+    return $result;
+}

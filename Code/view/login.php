@@ -13,7 +13,7 @@
 
 ob_start();
 ?>
-<h2>Login</h2>
+<h2>Se connecter</h2>
 <?php if (@$_GET['loginError'] == true) :?>
     <h5><span style="color:red">Login refusé</span></h5>
 <?php endif ?>
@@ -21,15 +21,15 @@ ob_start();
       <form class='form' method='POST' action="index.php?action=login">
           <div class="container">
               <label for="userEmail"><b>Username</b></label>
-              <input type="email" placeholder="Enter email address" name="inputUserEmailAddress" required>
+              <input type="email" placeholder="Enter your email address" name="inputUserEmailAddress" required>
 
               <label for="userPsw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="inputUserPsw" required>
+              <input type="password" placeholder="Enter your password" name="inputUserPsw" required>
           </div>
           <div class="container">
               <button type="submit" class="btn btn-default">Login</button>
               <button type="reset" class="btn btn-default">Reset</button>
-              <span class="psw">Forgot <a href="#">password?</a></span>
+              <span class="psw"><a href="">Mot de passe oublié ?</a></span>
           </div>
       </form>
     <div class="container signin">
