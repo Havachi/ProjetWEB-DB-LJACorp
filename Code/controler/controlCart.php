@@ -47,10 +47,10 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                                         if ($snowLocationRequest['inputDays'] == $cart['nbD']) {
                                             $tempqty = $cart['qty'];
                                             $cart['qty'] = $tempqty + $snowLocationRequest['inputQuantity'];
-                                        }
-                                    }
-                                } #End foreach
-                            }
+                                        }//End Foreach-If-If
+                                    }//End Foreach-If
+                                } //End foreach
+                            } 
                         } else { //current cart is empty
                             $cartArrayTemp = array(
                                 'code' => $snowCode,
@@ -60,6 +60,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                             );
                             $_SESSION['cart'] = array();
                             array_push($_SESSION['cart'], $cartArrayTemp);
+                            $_GET['action'] = "displayCart";
                             require "view/cart.php";
                         }
                     } else { //Qty too high
