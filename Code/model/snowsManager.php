@@ -1,19 +1,27 @@
 <?php
 /**
- * This php file is designed to manage all operation regarding snow's management
- * Author   : pascal.benzonana@cpnv.ch
- * Project  : 151
- * Created  : 18.02.2019 - 21:40
+ *|File Info|
  *
- * Last update :    19.02.2019 PBA
- *                  update fields in query
- * Source       :   https://bitbucket.org/pba_cpnv/151-2019_pba
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
+ *  |                                                                                               |
+ *  | Author   : pascal.benzonana@cpnv.ch                                                           |
+ *  | Project  : ProjetWEB-DB-LJACorp                                                               |
+ *  | Created  : 18.02.2019 - 21:40                                                                 |
+ *  | Description : This php file is designed to manage all operation regarding snow's management   |                                                                                   |
+ *  |                                                                                               |
+ *  |                                                                                               |
+ *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                            |
+ *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
  */
 
 /**
  * This function is designed to get all active snows
  * @return array : containing all information about snows. Array can be empty.
  */
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function is designed to get all active snows
+ * @return array : containing all information about snows. Array can be empty.
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnows()
 {
     $snowsQuery = 'SELECT code, brand, model, snowLength, dailyPrice, qtyAvailable, photo, active FROM snows';
@@ -24,11 +32,11 @@ function getSnows()
     return $snowResults;
 }
 
-/**
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to get only one snow
  * @param $snow_code : snow code to display (selected by the user)
  * @return array|null : snow to display. Can be empty.
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getASnow($snow_code)
 {
     $strgSeparator = '\'';
@@ -42,11 +50,12 @@ function getASnow($snow_code)
     return $snowResults;
 }
 
-/**
+
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function recover the quantity of snow in stock from the database.
  * @param $snowCode : The unique code of the snow
  * @return array : if the snow exist
- */
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnowQty($snowCode)
 {
     $strSep = '\'';
@@ -57,6 +66,19 @@ function getSnowQty($snowCode)
     return $snowQty[0]['qtyAvailable'];
 }
 
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function get the IDSnow in database from the snow code
+ * @param $snowCode The snow code
+ * @return array
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function getSnowID($snowCode){
+    $strSep = '\'';
+    $IDSnow = 0;
+    $query = "SELECT IDSnow FROM snows WHERE code=" . $strSep . $snowCode . $strSep;
+    require_once 'model/dbConnector.php';
+    $IDSnow = executeQuerySelect($query);
+    return $IDSnow[0]['IDSnow'];
+}
 
 //<editor-fold desc="Temporarly Unused Function">
 /* Unused function

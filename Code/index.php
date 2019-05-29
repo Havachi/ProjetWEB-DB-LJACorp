@@ -9,47 +9,66 @@
  */
 
 session_start();
-require "controler/controler.php";
+//require "controler/controler.php";
 
 if (isset($_GET['action'])) {
   $action = $_GET['action'];
   switch ($action) {
       case 'home' :
-          home();
+          require "view/home.php";
           break;
       case 'login' :
+          require_once "controler/controlUser.php";
           login($_POST);
           break;
       case 'logout' :
+          require_once "controler/controlUser.php";
           logout();
           break;
       case 'register' :
+          require_once "controler/controlUser.php";
           register($_POST);
           break;
       case 'displaySnows' :
+          require_once "controler/controlSnows.php";
           displaySnows();
           break;
       case 'displayASnow' :
+          require_once "controler/controlSnows.php";
           displayASnow($_GET['code']);
           break;
       case 'snowLeasingRequest':
+          require_once "controler/controlSnows.php";
           snowLeasingRequest($_GET['code']);
           break;
       case 'updateCartRequest':
+          require_once "controler/controlCart.php";
            updateCartRequest($_GET['code'], $_POST);
           break;
       case 'displayCart':
+          require_once "controler/controlCart.php";
           displayCart();
           break;
       case 'deleteCartRequest':
+          require_once "controler/controlCart.php";
           deleteCartRequest($_GET['line']);
           break;
+      case 'locationRequest':
+          require_once "controler/controlRent.php";
+          locationRequest();
+          break;
+      case 'myLocation':
+          require_once "controler/controlRent.php";
+          mylocation();
+          break;
       case 'test':
-          test();
+          require_once "model/locationManager.php";
+          createLocation($_SESSION['cart'],"user@user.ch");
+
       default :
-          home();
+          require "view/home.php";
   }
 }
 else {
-    home();
+    require "view/home.php";
 }

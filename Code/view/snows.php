@@ -1,15 +1,15 @@
 <?php
 /**
- * Author: Pascal.benzonana@cpnv.ch
- * Project  : snowUser.php
- * Created  : 04.03.2019 - 22:13
- *
- * Last update :    [18.02.2019 pba]
- *                  [modele.php splitted]
- * Git source  :    [link]
+ * Created by PhpStorm.
+ * Author:			Pascal.BENZONANA
+ * Date:			04.03.2019
+ * Last Update :    Pascal.BENZONANA
+ *					18.02.2019 - modele.php splitted
+ *					Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
-
-$title="Snows";
+ 
+$title="Rent A Snow - Nos snows";
 
 ob_start();
 $rows=0; // Column count

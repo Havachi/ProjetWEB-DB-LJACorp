@@ -1,14 +1,14 @@
 <?php
 /**
- * This php file is designed to show snow's details
- * Author : Pascal.BENZONANA
- * Project : ASnow
- * Created: 26.02.2019 - 8:04
- * Time: 15:00
+ * Created by PhpStorm.
+ * Author:			Pascal.BENZONANA
+ * Date:	 		26.02.2019
+ * Last Update:		Jonas.HAUTIER
+ *					27.05.2019 - Modification de l'entete et du title.
  */
+ 
+$title="Rent A Snow - ". $_GET['code'];
 
-$title="";
-// Tampon de flux stocké en mémoire
 ob_start();
 ?>
 
