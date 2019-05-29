@@ -5,6 +5,7 @@
  * Date: 			23.03.2019
  * Last Update :    Jonas.HAUTIER
  *					27.05.2019 - Modification de l'entete et du title.
+ *					29.05.2019 - Ajout du bouton finaliser la location
  */
  
 $title = 'Rent A Snow - Panier';
@@ -47,8 +48,12 @@ ob_start();
                 }
                 ?>
             </table>
-            <input type="submit" value="Louer encore" class="btn btn-success" name="backToCatalog">
-            <input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
+			<!-- Bouton "louer encore" -->
+            <input type="submit" value="Louer encore" class="btn btn-primary" name="backToCatalog">
+            <!-- Bouton "vider le panier" -->
+			<input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
+            <!-- Bouton "finaliser la location" -->
+			<input type="submit" value="Finaliser la location" class="btn btn-success" name="completeLeasing">
         </form>
     </article>
 <?php
