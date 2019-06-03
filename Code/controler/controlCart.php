@@ -42,17 +42,30 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         if($inCartQty + $snowLocationRequest['inputQuantity'] <= $stockQty){
             if($snowLocationRequest['inputQuantity'] > 0){
                 if($snowLocationRequest['inputDays'] > 0){
-                    if($snowLocationRequest['inputQuantity'] < $stockQty){
+                    if($snowLocationRequest['inputQuantity'] <= $stockQty){
                         if(isset($cartArrayTemp) && $cartArrayTemp != NULL){
                             if(isset($_SESSION['cart'])) {
+                                $i = 0;
                                 foreach ($cartArrayTemp as $key => &$cart) {
                                     if ($snowCode == $cart['code']) {
                                         if ($snowLocationRequest['inputDays'] == $cart['nbD']) {
                                             $tempqty = $cart['qty'];
-                                            $cart['qty'] = $tempqty + $snowLocationRequest['inputQuantity'];
+                                            $_SESSION['cart'][$i]['qty'] = $tempqty + $snowLocationRequest['inputQuantity'];
+                                            $added = true;
                                         }//End Foreach-If-If
                                     }//End Foreach-If
-                                } //End foreach
+                                    $i++;
+                                }//End foreach
+                                if(!isset($added)){
+                                    $cartArrayTemp = array(
+                                        'code' => $snowCode,
+                                        'dateD' => Date("d-m-y"),
+                                        'qty' => $snowLocationRequest['inputQuantity'],
+                                        'nbD' => $snowLocationRequest['inputDays']
+                                    );
+                                    array_push($_SESSION['cart'], $cartArrayTemp);
+                                }
+                                require "view/cart.php";
                             } 
                         } else { //current cart is empty
                             $cartArrayTemp = array(
@@ -65,23 +78,31 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                             array_push($_SESSION['cart'], $cartArrayTemp);
                             $_GET['action'] = "displayCart";
                             require "view/cart.php";
-                        }
+                        }//End else
                     } else { //Qty too high
+                        $snowsResults = getASnow($snowCode);
+                        $_GET['action'] = 'snowLeasingRequest';
                         $_GET['code'] = $snowCode;
                         $_GET['qty'] = true;
                         require "view/snowLeasingRequest.php";
                     }
                 } else { //nbDays too low
+                    $snowsResults = getASnow($snowCode);
+                    $_GET['action'] = 'snowLeasingRequest';
                     $_GET['code'] = $snowCode;
                     $_GET['days'] = true;
                     require "view/snowLeasingRequest.php";
                 }
             } else { //Qty too low
+                $snowsResults = getASnow($snowCode);
+                $_GET['action'] = 'snowLeasingRequest';
                 $_GET['code'] = $snowCode;
                 $_GET['qty'] = true;
                 require "view/snowLeasingRequest.php";
             }
-        } else { //Qty too high
+        } else { //Qty too high in cart + in request
+            $snowsResults = getASnow($snowCode);
+            $_GET['action'] = 'snowLeasingRequest';
             $_GET['code'] = $snowCode;
             $_GET['qty'] = true;
             require "view/snowLeasingRequest.php";
