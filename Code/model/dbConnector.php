@@ -22,6 +22,7 @@
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQueryUpdate($query)
 {
+    require_once "exceptions/DBUnreachable.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -45,6 +46,7 @@ function executeQueryUpdate($query)
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQuerySelect($query)
 {
+    require_once "exceptions/DBUnreachable.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
