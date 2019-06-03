@@ -80,7 +80,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                             require "view/cart.php";
                         }//End else
                     } else { //Qty too high
-                        //$snowsResults = getASnow($snowCode);
+                        $snowsResults = getASnow($snowCode);
                         $_GET['action'] = 'snowLeasingRequest';
                         $_GET['code'] = $snowCode;
                         $_GET['qty'] = true;
