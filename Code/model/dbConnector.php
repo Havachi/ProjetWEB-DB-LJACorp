@@ -78,6 +78,7 @@ function executeQueryInsert($query)
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function openDBConnexion()
 {
+    require_once "exceptions/DBUnreachable.php";
     $tempDbConnexion = null;
 
     $sqlDriver = 'mysql';
@@ -89,10 +90,18 @@ function openDBConnexion()
     $userPwd = '123qweasD$';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;
 
+    $tempDbConnexion = new PDO($dsn, $userName, $userPwd);
+    if($tempDbConnexion==null){
+        throw new DBUnreachable;
+    }
+    return $tempDbConnexion;
+}
+
+/*
+ * old error
     try {
         $tempDbConnexion = new PDO($dsn, $userName, $userPwd);
     } catch (PDOException $exception) {
         echo 'Connection failed: ' . $exception->getMessage();
     }
-    return $tempDbConnexion;
-}
+    */

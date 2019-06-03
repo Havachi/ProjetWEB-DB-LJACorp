@@ -1,7 +1,7 @@
 <?php
 
 
-class DBUnreachable
+class DBUnreachable extends Exception
 {
-    private $errormsg = "Notre site est en maintenance, merci pour votre compréhension";
+    protected $message = "Notre site est en maintenance, merci pour votre compréhension";
 }
