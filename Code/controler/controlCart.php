@@ -171,3 +171,12 @@ function snowLeasingRequest($snowCode){
         require "view/login.php";
     }
 }
+
+/**
+ * This function is designed to empty the user cart
+ * @param -
+ */
+function emptyCart(){
+    $_SESSION['cart'] = array();
+    require "view/home.php";
+}

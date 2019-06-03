@@ -53,6 +53,10 @@ if (isset($_GET['action'])) {
           require_once "controler/controlCart.php";
           deleteCartRequest($_GET['line']);
           break;
+      case 'emptyCart':
+          require_once "controler/controlCart.php";
+          emptyCart();
+          break;
       case 'locationRequest':
           require_once "controler/controlRent.php";
           locationRequest();
