@@ -5,13 +5,14 @@
  * Project  : Projet WEB + BDD
  * Created  : 24.05.2019 - 09:00
  *
- * Last update :    24.05.2019 Louis Richard
- *                  ---
+ * Last update :    03.06.2019 Louis Richard
+ *                  Moved function snowLeasingRequest from controlSnow
+ *                  Modified some comments
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 
 /**
- * This function is designed to redirect the user to his cart
+ * This function is designed to redirect the user to his/her cart
  * @param -
  */
 function displayCart(){
@@ -21,19 +22,21 @@ function displayCart(){
 
 /**
  * This function designed to manage all request impacting the cart content
- * @param $snowCode
- * @param $snowLocationRequest
+ * @param $snowCode - Snow id
+ * @param $snowLocationRequest - Result from the request form
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
+    require_once "model/snowsManager.php";
+    $stockQty = getSnowQty($snowCode);
+
     if(isset($_SESSION['cart'])) {
         $cartArrayTemp = $_SESSION['cart'];
         if($cartArrayTemp!=null || $cartArrayTemp!=array()){
-            require_once "model/snowsManager.php";
-            $stockQty = getSnowQty($snowCode);
             require_once "model/cartManager.php";
             $inCartQty = getSnowQtyInCart($cartArrayTemp, $snowCode);
         }
-
+    } else {
+        $inCartQty = 0;
     }
     if(($snowLocationRequest) AND ($snowCode)){
         if($inCartQty + $snowLocationRequest['inputQuantity'] <= $stockQty){
@@ -106,5 +109,22 @@ function deleteCartRequest($line){
             $_GET['action'] = "cartManage";
             require "view/cart.php";
         }
+    }
+}
+
+/**
+ * This function is designed to redirect the user to the leasing request form
+ * @param $snowCode - Snow ID
+ */
+function snowLeasingRequest($snowCode){
+    if(isset($_SESSION['userEmailAddress'])){
+        require "model/snowsManager.php";
+        $snowsResults = getASnow($snowCode);
+        $_GET['action'] = "snowLeasingRequest";
+        require "view/snowLeasingRequest.php";
+    } else {
+        $_GET['action'] = "login";
+        $_GET['notlog'] = TRUE;
+        require "view/login.php";
     }
 }

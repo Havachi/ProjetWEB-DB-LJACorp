@@ -5,8 +5,8 @@
  * Project  : Projet WEB + BDD
  * Created  : 24.05.2019 - 09:00
  *
- * Last update :    24.05.2019 Louis Richard
- *                  ---
+ * Last update :    03.06.2019 Louis Richard
+ *                  Modified some comments
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 

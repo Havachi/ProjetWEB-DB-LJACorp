@@ -5,13 +5,15 @@
  * Project  : Projet WEB + BDD
  * Created  : 24.05.2019 - 09:00
  *
- * Last update :    24.05.2019 Louis Richard
- *                  ---
+ * Last update :    03.06.2019 Louis Richard
+ *                  Moved function snowLeasingRequest to controlCart
+ *                  Modified some comments
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 
 /**
- * This function is designed to display Snows
+ * This function is designed to display all the snows in the databse
+ * This function redirect the user to a different view if the user in a seller
  * @param -
  */
 function displaySnows(){
@@ -49,21 +51,4 @@ function displayASnow($snow_code){
     require_once "model/snowsManager.php";
     $snowsResults= getASnow($snow_code);
     require "view/aSnow.php";
-}
-
-/**
- * This function is designed to redirect the user to the leasing request form
- * @param $snowCode - Snow ID
- */
-function snowLeasingRequest($snowCode){
-    if(isset($_SESSION['userEmailAddress'])){
-        require "model/snowsManager.php";
-        $snowsResults = getASnow($snowCode);
-        $_GET['action'] = "snowLeasingRequest";
-        require "view/snowLeasingRequest.php";
-    } else {
-        $_GET['action'] = "login";
-        $_GET['notlog'] = TRUE;
-        require "view/login.php";
-    }
 }

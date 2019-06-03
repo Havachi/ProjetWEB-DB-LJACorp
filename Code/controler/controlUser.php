@@ -5,8 +5,8 @@
  * Project  : Projet WEB + BDD
  * Created  : 24.05.2019 - 09:00
  *
- * Last update :    24.05.2019 Louis Richard
- *                  ---
+ * Last update :    03.06.2019 Louis Richard
+ *                  Modified some comments
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 
@@ -40,7 +40,9 @@ function login($loginRequest){
 }
 
 /**
- * This fonction is designed
+ * This function is designed to redirect the user to the register form if no registerRequest is empty
+ * If register request is not null, it will test the values, extract them and register the user
+ * If the values aren't good to register the user, the user will be redirected to the register form with an error
  * @param $registerRequest containing result from a register request
  */
 function register($registerRequest){
