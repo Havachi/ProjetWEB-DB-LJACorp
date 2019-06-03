@@ -24,7 +24,7 @@ function displaySnows(){
     require_once "model/snowsManager.php";
     try{
         $snowsResults = getSnows();
-    }catch (SiteUnderMaintenanceExeption $message){
+    }catch (SiteUnderMaintenanceExeption $errormsg){
         require "view/home.php";
     }
 

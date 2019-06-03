@@ -13,8 +13,8 @@ $title = "Rent A Snow";
 ob_start();
 
 
-if (isset($message)) {
-    echo "<div class='alert-box error'><span>erreur: </span>" . $message . "</div>";
+if (isset($errormsg)) {
+    echo "<div class='alert-box error'><span>erreur: </span>" . $errormsg . "</div>";
 }
 
 ?>
