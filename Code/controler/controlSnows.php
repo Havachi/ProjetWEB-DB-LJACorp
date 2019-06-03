@@ -25,7 +25,9 @@ function displaySnows(){
     require_once "model/snowsManager.php";
     try{
         $snowsResults = getSnows();
-    }catch (SiteUnderMaintenanceExeption $errormsg){
+    }catch (SiteUnderMaintenanceExeption $errormsg) {
+        $errormsg = array();
+        $errormsg = "Site maintenance bla";
         require "view/home.php";
         die;
     }
