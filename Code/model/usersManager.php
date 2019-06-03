@@ -1,4 +1,5 @@
 <?php
+include "exceptions/SiteUnderMaintenanceExeption.php";
 
 /**
  *|File Info|
@@ -14,29 +15,36 @@
  */
 
 
-
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to verify user's login
  * @param $userEmailAddress
  * @param $userPsw
  * @return bool : "true" only if the user and psw match the database. In all other cases will be "false".
- **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function isLoginCorrect($userEmailAddress, $userPsw){
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
+ *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
+ */
+function isLoginCorrect($userEmailAddress, $userPsw)
+{
     $result = false;
 
     $strSeparator = '\'';
-    $loginQuery = 'SELECT userHashPsw FROM users WHERE userEmailAddress = '. $strSeparator . $userEmailAddress . $strSeparator;
+    $loginQuery = 'SELECT userHashPsw FROM users WHERE userEmailAddress = ' . $strSeparator . $userEmailAddress . $strSeparator;
 
     require_once 'model/dbConnector.php';
     $queryResult = executeQuerySelect($loginQuery);
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $userHashPsw = $queryResult[0]['userHashPsw'];
+            $hashPasswordDebug = password_hash($userPsw, PASSWORD_DEFAULT);
+            $result = password_verify($userPsw, $userHashPsw);
+        }
+        return $result;
 
-    if (count($queryResult) == 1)
-    {
-        $userHashPsw = $queryResult[0]['userHashPsw'];
-        $hashPasswordDebug = password_hash($userPsw, PASSWORD_DEFAULT);
-        $result = password_verify($userPsw, $userHashPsw);
     }
-    return $result;
+
+
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
@@ -44,22 +52,30 @@ function isLoginCorrect($userEmailAddress, $userPsw){
  * @param $userEmailAddress
  * @param $userPsw
  * @return bool|null
- **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function registerNewAccount($userEmailAddress, $userPsw){
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
+ */
+function registerNewAccount($userEmailAddress, $userPsw)
+{
     $result = false;
 
     $strSeparator = '\'';
 
     $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
 
-    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' .$strSeparator . $userEmailAddress .$strSeparator . ','.$strSeparator . $userHashPsw .$strSeparator. ')';
+    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' . $strSeparator . $userEmailAddress . $strSeparator . ',' . $strSeparator . $userHashPsw . $strSeparator . ')';
 
     require_once 'model/dbConnector.php';
     $queryResult = executeQueryInsert($registerQuery);
-    if($queryResult){
-        $result = $queryResult;
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if ($queryResult) {
+            $result = $queryResult;
+        }
+        return $result;
     }
-    return $result;
+
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
@@ -67,9 +83,11 @@ function registerNewAccount($userEmailAddress, $userPsw){
  * For the webapp, it will adapt the behavior of the GUI
  * @param $userEmailAddress
  * @return int (1 = customer ; 2 = seller)
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 
-function getUserType($userEmailAddress){
+function getUserType($userEmailAddress)
+{
     $result = 1;//we fix the result to 1 -> customer
 
     $strSeparator = '\'';
@@ -78,18 +96,25 @@ function getUserType($userEmailAddress){
 
     require_once 'model/dbConnector.php';
     $queryResult = executeQuerySelect($getUserTypeQuery);
-
-    if (count($queryResult) == 1){
-        $result = $queryResult[0]['userType'];
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $result = $queryResult[0]['userType'];
+        }
+        return $result;
     }
-    return $result;
+
 }
+
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserID from the DB, multiple use
  * @param $userEmailAddress The users Email Address
  * @return The user ID
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function getUserID($userEmailAddress){
+function getUserID($userEmailAddress)
+{
     $strSeparator = '\'';
 
     $getUserIdQuery = 'SELECT IDUser FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
@@ -97,9 +122,12 @@ function getUserID($userEmailAddress){
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($getUserIdQuery);
-
-    if (count($queryResult) == 1){
-        $result = $queryResult[0]['IDUser'];
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $result = $queryResult[0]['IDUser'];
+        }
+        return $result;
     }
-    return $result;
 }

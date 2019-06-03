@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This php file is designed to manage all operation regarding snow's management
  * Author   : louis.richard@cpnv.ch
@@ -26,6 +27,7 @@ function displaySnows(){
         $snowsResults = getSnows();
     }catch (SiteUnderMaintenanceExeption $errormsg){
         require "view/home.php";
+        die;
     }
 
 

@@ -13,7 +13,7 @@
  *  | Git source  :    [https://github.com/Havachi/ProjetWEB-DB-LJACorp]                            |
  *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
  */
-
+include "exceptions/SiteUnderMaintenanceExeption.php";
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to get all active snows
