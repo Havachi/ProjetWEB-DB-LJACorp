@@ -24,7 +24,7 @@ function getSnowQtyInCart($currentCartArray, $snowCode)
 {
     foreach ($currentCartArray as $key => $cart) {
         if ($snowCode == $cart['code']) {
-            $snowQty = $cart['Qty'];
+            $snowQty = $cart['qty'];
         } else {
             $snowQty = 0;
         }
