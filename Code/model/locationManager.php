@@ -61,7 +61,7 @@ function createLeasing($actualCart, $userEmail){
 
             $flag++;
         }
-        locationQuery($completeLocationArray);
+        LeasingQuery($completeLocationArray);
 }
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function insert Loaction in DB
