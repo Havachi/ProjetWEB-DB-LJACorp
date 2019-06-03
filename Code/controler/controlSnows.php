@@ -25,7 +25,7 @@ function displaySnows(){
     try{
         $snowsResults = getSnows();
     }catch (SiteUnderMaintenanceExeption $message){
-        echo $message;
+        require "view/home.php";
     }
 
 
