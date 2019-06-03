@@ -23,7 +23,13 @@ function login($loginRequest){
 
         //try to check if user/psw are matching with the database
         require_once "model/usersManager.php";
-        if (isLoginCorrect($userEmailAddress, $userPsw)) {
+        try {
+            $corr = isLoginCorrect($userEmailAddress, $userPsw);
+        }catch (SiteUnderMaintenanceExeption $errormsg){
+            require "view/home.php";
+            die;
+        }
+        if ($corr) {
             createSession($userEmailAddress);
             $_GET['loginError'] = false;
             $_GET['action'] = "home";
@@ -56,7 +62,13 @@ function register($registerRequest){
 
         if ($userPsw == $userPswRepeat){
             require_once "model/usersManager.php";
-            if (registerNewAccount($userEmailAddress, $userPsw)){
+            try {
+                $corr = registerNewAccount($userEmailAddress, $userPsw);
+            }catch (SiteUnderMaintenanceExeption $errormsg){
+                require "view/home.php";
+                die;
+            }
+            if ($corr){
                 createSession($userEmailAddress);
                 $_GET['registerError'] = false;
                 $_GET['action'] = "home";
@@ -80,7 +92,13 @@ function register($registerRequest){
 function createSession($userEmailAddress){
     $_SESSION['userEmailAddress'] = $userEmailAddress;
     //set user type in Session
-    $userType = getUserType($userEmailAddress);
+    try {
+        $userType = getUserType($userEmailAddress);
+    }catch (SiteUnderMaintenanceExeption $errormsg){
+        require "view/home.php";
+        die;
+    }
+
     $_SESSION['userType'] = $userType;
 }
 
