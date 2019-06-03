@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * Author:			Pascal.BENZONANA 
  * Date: 			23.03.2019
- * Last Update :    Jonas.HAUTIER
- *					27.05.2019 - Modification de l'entete et du title.
- *					29.05.2019 - Ajout du bouton finaliser la location
+ * Last Update :    Louis Richard
+ *					03.06.2019 - Modification des boutons pour renvoyer sur bonnes fonctions et modification de l'action du form
  */
  
 $title = 'Rent A Snow - Panier';
@@ -14,7 +13,7 @@ ob_start();
 ?>
     <h2>Votre panier</h2>
     <article>
-        <form method="POST" action="index.php?action=displaySnows">
+        <form method="POST" action="index.php?action=locationRequest">
             <table class="table">
                 <tr>
                     <th>Code</th><th>Date</th><th>Quantité</th><th>Nombre de jours</th><th>Modifier</th>
@@ -49,9 +48,9 @@ ob_start();
                 ?>
             </table>
 			<!-- Bouton "louer encore" -->
-            <input type="submit" value="Louer encore" class="btn btn-primary" name="backToCatalog">
+            <a href = "index.php?action=displaySnows" class="btn btn-primary" name="backToCatalog">Louer encore</a>
             <!-- Bouton "vider le panier" -->
-			<input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
+            <a href="index.php?action=emptyCart" class="btn btn-cancel" name="resetCart">Vider le panier</a>
             <!-- Bouton "finaliser la location" -->
 			<input type="submit" value="Finaliser la location" class="btn btn-success" name="completeLeasing">
         </form>
