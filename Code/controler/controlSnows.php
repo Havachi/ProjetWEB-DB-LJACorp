@@ -22,7 +22,12 @@ function displaySnows(){
     }
 
     require_once "model/snowsManager.php";
-    $snowsResults = getSnows();
+    try{
+        $snowsResults = getSnows();
+    }catch (SiteUnderMaintenanceExeption $message){
+        echo $message;
+    }
+
 
     $_GET['action'] = "displaySnows";
     if (isset($_SESSION['userType']))
