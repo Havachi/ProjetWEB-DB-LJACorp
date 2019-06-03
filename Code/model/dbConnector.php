@@ -18,11 +18,10 @@
  * This function add a new item in the cart
  * @param
  * @return array : The full cart after adding the new leasing
- * @throws DBUnreachable : in case the Database can't be reach
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQueryUpdate($query)
 {
-    require_once "exceptions/DBUnreachable.php";
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -30,8 +29,6 @@ function executeQueryUpdate($query)
         $statement = $dbConnexion->prepare($query);//prepare query
         $statement->execute();//execute query
         $queryResult = $statement->fetchAll();//prepare result for client
-    }else{
-        throw new DBUnreachable;
     }
     $dbConnexion = null;//close database connexion
     return $queryResult;
@@ -41,12 +38,11 @@ function executeQueryUpdate($query)
  * This function is designed to execute a query received as parameter
  * @param $query : must be correctly build for sql (synthaxis) but the protection against sql injection will be done there
  * @return array|null : get the query result (can be null)
- * @throws DBUnreachable : in case the Database can't be reach
  * Source : http://php.net/manual/en/pdo.prepare.php
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQuerySelect($query)
 {
-    require_once "exceptions/DBUnreachable.php";
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -54,8 +50,6 @@ function executeQuerySelect($query)
         $statement = $dbConnexion->prepare($query);//prepare query
         $statement->execute();//execute query
         $queryResult = $statement->fetchAll();//prepare result for client
-    }else{
-        throw new DBUnreachable;
     }
     $dbConnexion = null;//close database connexion
     return $queryResult;
@@ -65,19 +59,16 @@ function executeQuerySelect($query)
  * This function is designed to insert value in database
  * @param $query
  * @return bool|null : $statement->execute() returne true is the insert was successful
- * @throws DBUnreachable : in case the Database can't be reach
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQueryInsert($query)
 {
-    require_once "exceptions/DBUnreachable.php";
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
     if ($dbConnexion != null) {
         $statement = $dbConnexion->prepare($query);//prepare query
         $queryResult = $statement->execute();//execute query
-    }else{
-        throw new DBUnreachable;
     }
     $dbConnexion = null;//close database connexion
     return $queryResult;
@@ -100,10 +91,13 @@ function openDBConnexion()
     $userName = 'appliConnector';
     $userPwd = '123qweasD$';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;
+
+
+    //if it's not like that, everything crash, rly...
     try {
         $tempDbConnexion = new PDO($dsn, $userName, $userPwd);
     } catch (PDOException $exception) {
-        echo 'Connection failed: ' . $exception->getMessage();
+        //echo 'Connection failed: ' . $exception->getMessage();
     }
 
     return $tempDbConnexion;

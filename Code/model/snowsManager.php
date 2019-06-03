@@ -14,20 +14,23 @@
  *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*
  */
 
-/**
- * This function is designed to get all active snows
- * @return array : containing all information about snows. Array can be empty.
- */
+
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function is designed to get all active snows
  * @return array : containing all information about snows. Array can be empty.
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnows()
 {
+
     $snowsQuery = 'SELECT code, brand, model, snowLength, dailyPrice, qtyAvailable, photo, active FROM snows';
 
     require_once 'model/dbConnector.php';
     $snowResults = executeQuerySelect($snowsQuery);
+    if($snowResults === null){
+        throw new SiteUnderMaintenanceExeption;
+    }
+
 
     return $snowResults;
 }
