@@ -3,5 +3,6 @@
 
 class SiteUnderMaintenanceExeption extends Exception
 {
-    protected $errormsg = "Notre site est en maintenance, merci pour votre compréhension";
+    protected $message = "Notre site est en maintenance, merci pour votre compréhension";
+    protected  $file ="";
 }

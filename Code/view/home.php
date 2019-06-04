@@ -14,7 +14,7 @@ ob_start();
 
 
 if (isset($errormsg)) {
-    echo "<div class='alert-box error'><span>erreur: </span>" . $errormsg . "</div>";
+    echo "<div class='alert-box error'><span>erreur: </span>" . $errormsg->getMessage() . "</div>";
 }
 
 ?>
