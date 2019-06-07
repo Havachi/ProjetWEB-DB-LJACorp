@@ -4,10 +4,11 @@
  * Author: 			Jonas.HAUTIER
  * Date: 			03.06.2019
  * Last Update :    Jonas.HAUTIER
- *					27.05.2019 - creation du fichier et de l'entete
+ *					03.06.2019 - creation du fichier et de l'entete
+ *          07.06.2019 - creation de l'IHM
  */
 
-$title = 'Rent A Snow - Vos locations (vendeur)';
+$title = 'Rent A Snow - Locations en cours';
 
 ob_start();
 ?>
@@ -19,7 +20,7 @@ ob_start();
 		<form>
 			<table class="table">
 				<tr>
-          <th>Location</th> <!-- id du snow + redirect to details -->
+          <th>Location</th> <!-- id de la location + redirect to details -->
 					<th>Client</th> <!-- email client -->
 					<th>Début de location</th> <!-- date xx/xx/xxxx -->
 					<th>Fin de location</th> <!-- date xx/xx/xxxx -->
