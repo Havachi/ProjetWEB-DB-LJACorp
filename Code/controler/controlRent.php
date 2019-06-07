@@ -42,5 +42,16 @@ function locationRequest(){
  * @param -
  */
 function myLocation(){
-    require "view/location.php";
+    require "view/leasing.php";
+}
+
+function test(){
+    $leasing = array(['IDLoc' => 'b122',
+                    'snowCode' => 'b122',
+                    "snowBrand" => 'hector',
+                    "snowModel" => "Hozor",
+                    "dailyPrice" => 2,
+                    "qtyLoc" => 12,
+                    "dateLoc" => date("D-M-Y")]);
+    require  "view/leasing.php";
 }
