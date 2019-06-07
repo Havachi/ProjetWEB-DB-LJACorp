@@ -5,8 +5,8 @@
  * Project  : Projet WEB + BDD
  * Created  : 24.05.2019 - 09:00
  *
- * Last update :    03.06.2019 Louis Richard
- *                  Modified some comments
+ * Last update :    07.06.2019 Louis Richard
+ *                  Implemented Try Catch in function locationRequest
  * Source       :   https://github.com/Havachi/ProjetWEB-DB-LJACorp
  */
 
@@ -18,15 +18,23 @@
 function locationRequest(){
     if(isset($_SESSION['cart'])){
         if(isset($_SESSION['userType'])){
-            require_once "model/cartManager.php";
-            createLocation($_SESSION['cart'], $_SESSION['userEmailAddress']);
-
-            require "view/location.php";
+            require_once "model/locationManager.php";
+            try {
+                createLeasing($_SESSION['cart'], $_SESSION['userEmailAddress']);
+                $_SESSION['cart'] = array();
+                $_GET['action'] = "myLocation";
+                require "view/location.php";
+            }
+            catch(SiteUnderMaintenanceExeption $errormsg){
+                require "view/home.php";
+                die;
+            }
         }
         $_GET["notlog"] = true;
         require "view/login.php";
     }
     $_GET["cartEmpty"] = true;
+    require "view/home.php";
 }
 
 /**
