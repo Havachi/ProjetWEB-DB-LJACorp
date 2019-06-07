@@ -14,24 +14,25 @@ ob_start();
 	<!-- title -->
 	<h2>Locations en cours</h2>
 	<article>
+
 		<!-- leasing table -->
 		<form>
 			<table class="table">
 				<tr>
           <th>Location</th> <!-- id du snow + redirect to details -->
 					<th>Client</th> <!-- email client -->
-					<th>Début de location</th> <!-- date -->
-					<th>Fin de location</th> <!-- date -->
+					<th>Début de location</th> <!-- date xx/xx/xxxx -->
+					<th>Fin de location</th> <!-- date xx/xx/xxxx -->
 					<th>Statut</th> <!-- En cours/Rendu partiel/Rendu -->
 				</tr>
 				<tr>
 					<?php
 					foreach	($leasing as $leasRow) : ?>
-							<td><?= $leasRow['IDLoc']; ?></td>
-							<td><?= $leasRow['']; ?></td>
-							<td><?= $leasRow['']; ?></td>
-							<td><?= $leasRow['']; ?></td>
+							<td><a href=""><?= $leasRow['IDLoc']; ?></a></td>
+							<td><?= $leasRow['userEmail']; ?></td>
 							<td><?= $leasRow['dateLoc']; ?></td>
+							<td><?= $leasRow['dateEndLoc']; ?></td>
+							<td><?= $leasRow['statusLoc']; ?></td>
 					<?php endforeach; ?>
 				</tr>
 			</table>
