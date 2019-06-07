@@ -13,8 +13,10 @@ $title = 'Rent A Snow - Vos locations';
 
 ob_start();
 ?>
+	<!-- title -->
 	<h2>Vos Locations</h2>
 	<article>
+		
 		<!-- intro text -->
 		<div>
 			<p>Votre demande de location a été enregistrée.</p></br>
@@ -25,7 +27,7 @@ ob_start();
 		<form>
 			<table class="table">
 				<tr>
-        			<th>N° de location</th>
+        	<th>N° de location</th>
 					<th>Code</th>
 					<th>Marque</th>
 					<th>Modèle</th>
