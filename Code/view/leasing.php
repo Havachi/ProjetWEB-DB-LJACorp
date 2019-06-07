@@ -7,17 +7,14 @@
  *					27.05.2019 - creation du fichier et update de l'entete
  *					03.06.2019 - ajout du tableau de location
  *					04.06.2019 - fini... a verifier sur l instance
- *					07.06.2019 - soucis d'indentation
  */
 
 $title = 'Rent A Snow - Vos locations';
 
 ob_start();
 ?>
-	<!-- title -->
 	<h2>Vos Locations</h2>
 	<article>
-
 		<!-- intro text -->
 		<div>
 			<p>Votre demande de location a été enregistrée.</p></br>
@@ -28,7 +25,7 @@ ob_start();
 		<form>
 			<table class="table">
 				<tr>
-        	<th>N° de location</th>
+        			<th>N° de location</th>
 					<th>Code</th>
 					<th>Marque</th>
 					<th>Modèle</th>
