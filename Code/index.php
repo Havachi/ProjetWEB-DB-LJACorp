@@ -38,7 +38,7 @@ if (isset($_GET['action'])) {
           displayASnow($_GET['code']);
           break;
       case 'snowLeasingRequest':
-          require_once "controler/controlSnows.php";
+          require_once "controler/controlCart.php";
           snowLeasingRequest($_GET['code']);
           break;
       case 'updateCartRequest':
@@ -52,6 +52,10 @@ if (isset($_GET['action'])) {
       case 'deleteCartRequest':
           require_once "controler/controlCart.php";
           deleteCartRequest($_GET['line']);
+          break;
+      case 'emptyCart':
+          require_once "controler/controlCart.php";
+          emptyCart();
           break;
       case 'locationRequest':
           require_once "controler/controlRent.php";

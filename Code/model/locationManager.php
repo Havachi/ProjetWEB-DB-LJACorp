@@ -61,7 +61,7 @@ function createLeasing($actualCart, $userEmail){
 
             $flag++;
         }
-        locationQuery($completeLocationArray);
+        LeasingQuery($completeLocationArray);
 }
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function insert Loaction in DB
@@ -100,5 +100,24 @@ function LeasingRecover($IDloc){
     $completeLocationArray = executeQuerySelect($query);
 
     return $completeLocationArray;
+}
+
+
+//code, brand, model, snowLength, dailyPrice, qtyAvailable, description, photo
+function displayleasingFormating($userEmail,$IDLoc){
+    $strSep = '\'';
+
+    $userID=getUserID($userEmail);
+    //TODO get snow code
+
+    $snowCode=0;
+    $snowBrand=0;
+    $snowModel=0;
+    $dailyPrice=0;
+    $leasingQty=0;
+    $dateLoc=0;
+    $snowQuery = 'SELECT brand, model,  dailyPrice FROM snows WHERE code=' . $strSep . $snow_code . $strSep . 'AND active=1';
+    $leasing = array('IDLoc' => $IDLoc,'snowCode' => $snowCode,'snowBrand' => $snowBrand,'snowModel' => $snowModel,'dailyPrice' => $dailyPrice,'leasingQty' => $leasingQty,'dateLoc' => $dateLoc);
+    return $leasing;
 }
 

@@ -21,6 +21,7 @@
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQueryUpdate($query)
 {
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -41,6 +42,7 @@ function executeQueryUpdate($query)
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQuerySelect($query)
 {
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -60,6 +62,7 @@ function executeQuerySelect($query)
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function executeQueryInsert($query)
 {
+    require_once "exceptions/SiteUnderMaintenanceExeption.php";
     $queryResult = null;
 
     $dbConnexion = openDBConnexion();//open database connexion
@@ -89,10 +92,13 @@ function openDBConnexion()
     $userPwd = '123qweasD$';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;
 
+
+    //if it's not like that, everything crash, rly...
     try {
         $tempDbConnexion = new PDO($dsn, $userName, $userPwd);
     } catch (PDOException $exception) {
-        echo 'Connection failed: ' . $exception->getMessage();
+        //echo 'Connection failed: ' . $exception->getMessage();
     }
+
     return $tempDbConnexion;
 }
