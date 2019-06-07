@@ -122,12 +122,9 @@ function getUserID($userEmailAddress)
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($getUserIdQuery);
-    if ($queryResult === null) {
-        throw new SiteUnderMaintenanceExeption;
-    } else {
-        if (count($queryResult) == 1) {
-            $result = $queryResult[0]['IDUser'];
-        }
+    if (count($queryResult) == 1) {
+        $result = $queryResult[0]['IDUser'];
+
         return $result;
     }
 }

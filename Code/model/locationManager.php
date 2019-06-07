@@ -27,8 +27,9 @@
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get Location Datas and transfer individual cart to the next function
- * @param $actualCart The cart of the user, can't be null (at least shouldn't be null)
- * @param $userEmail The user Email Address
+ * @param $actualCart : The cart of the user, can't be null (at least shouldn't be null)
+ * @param $userEmail : The user Email Address
+ * @throws SiteUnderMaintenanceExeption : in case the quarry didn't pass so the database is unreachable
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function createLeasing($actualCart, $userEmail){
     $completeLocationArray = array();
@@ -36,6 +37,13 @@ function createLeasing($actualCart, $userEmail){
     require_once "model/usersManager.php";
 
     $userID = getUserID($userEmail);
+    if ($userID === null){
+            throw new SiteUnderMaintenanceExeption;
+    }
+
+
+
+
     $flag = 0;
    //Verifiacation that the cart isn't empty
         //Single cart extraction
@@ -64,7 +72,7 @@ function createLeasing($actualCart, $userEmail){
         LeasingQuery($completeLocationArray);
 }
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
- * This function insert Loaction in DB
+ * This function insert Leasing in DB
  * @param $completeLocationArray The complete loaction datas
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function LeasingQuery($completeLocationArray){
@@ -88,7 +96,7 @@ function LeasingQuery($completeLocationArray){
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
- * This function recover Loction datas in DB
+ * This function recover Leasing datas in DB
  * @param $IDloc The location unique ID
  * @return array
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
