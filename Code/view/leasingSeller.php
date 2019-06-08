@@ -29,7 +29,7 @@ ob_start();
 				<tr>
 					<?php
 					foreach	($leasing as $leasRow) : ?>
-					    <td><a href=""><?= $leasRow['IDLoc']; ?></a></td>
+					    <td><a href="index.php?action=//TODO"><?= $leasRow['IDLoc']; ?></a></td>
 						<td><?= $leasRow['userEmail']; ?></td>
 						<td><?= $leasRow['dateLoc']; ?></td>
 						<td><?= $leasRow['dateEndLoc']; ?></td>
