@@ -1,5 +1,5 @@
 <?php
-include "exceptions/SiteUnderMaintenanceExeption.php";
+//include "exceptions/SiteUnderMaintenanceExeption.php";
 
 /**
  *|File Info|
