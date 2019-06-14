@@ -66,8 +66,8 @@ if (isset($_GET['action'])) {
           mylocation();
           break;
       case 'test':
-          require_once "controler/controlRent.php";
-          test();
+          require_once "model/locationManager.php";
+
 
       default :
           require "view/home.php";
