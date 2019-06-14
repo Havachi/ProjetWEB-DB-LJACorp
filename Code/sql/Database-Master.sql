@@ -1,7 +1,3 @@
-/*This script should be used in first*/
-
-
-/*sql_createDataBase.sql*/
 -- --------------------------------------------------------
 -- Hôte :                        127.0.0.1
 -- Version du serveur:           8.0.14 - MySQL Community Server - GPL
@@ -15,15 +11,16 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 
-
 -- Export de la structure de la base pour snows
+DROP DATABASE IF EXISTS `snows`;
 CREATE DATABASE IF NOT EXISTS `snows` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `snows`;
 
 -- Export de la structure de la table snows. snows
+DROP TABLE IF EXISTS `snows`;
 CREATE TABLE IF NOT EXISTS `snows`
 (
-    `id`           int(11)             NOT NULL AUTO_INCREMENT,
+    `snowID`       int(11)             NOT NULL AUTO_INCREMENT,
     `code`         varchar(4)          NOT NULL,
     `brand`        varchar(20)         NOT NULL,
     `model`        varchar(30)         NOT NULL,
@@ -33,18 +30,68 @@ CREATE TABLE IF NOT EXISTS `snows`
     `dailyPrice`   float unsigned      NOT NULL,
     `photo`        varchar(50)                  DEFAULT NULL,
     `active`       tinyint(4) unsigned NOT NULL DEFAULT '0',
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`snowID`),
     UNIQUE KEY `snow_code` (`code`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10
   DEFAULT CHARSET = utf8;
 
 -- Export de données de la table snows.snows : ~9 rows (environ)
-DELETE
-FROM `snows`;
-/*!40000 ALTER TABLE `snows`
-    DISABLE KEYS */;
-INSERT INTO `snows` (`id`, `code`, `brand`, `model`, `snowLength`, `qtyAvailable`, `description`, `dailyPrice`, `photo`,
+
+
+-- Export de la structure de la table snows. users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users`
+(
+    `userID`           INT(10) unsigned NOT NULL AUTO_INCREMENT,
+    `userEmailAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `userHashPsw`      varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `userType`         INT(2) NOT NULL DEFAULT '1',
+    PRIMARY KEY (`userID`),
+    UNIQUE KEY `userEmailAddress` (`userEmailAddress`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+/*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS = IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+
+DROP TABLE IF EXISTS `Locations`;
+CREATE TABLE `Locations`
+(
+    IDLoc        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    FK_IDUser    INT(10) UNSIGNED NOT NULL,
+    DateLocStart DATE,
+    DateLocEnd   DATE,
+    LocStatus    smallint(2),
+    PRIMARY KEY (`IDLoc`),
+    FOREIGN KEY (FK_IDUser) REFERENCES users (userID)
+) COLLATE = 'utf8_general_ci'
+  ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `OrderedSnow`;
+CREATE TABLE `OrderedSnow`
+(
+    IDOrder      INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    FK_IDLoc     INT(10) UNSIGNED NOT NULL,
+    FK_IDSnow    INT(11) NOT NULL,
+    DateOrderEnd DATE,
+    QtyOrder     SMALLINT(6),
+    NbDOrder     SMALLINT(6),
+    OrderStatus  SMALLINT(2),
+    PRIMARY KEY (`IDOrder`),
+    FOREIGN KEY (FK_IDLoc) REFERENCES users (userID),
+    FOREIGN KEY (FK_IDSnow) REFERENCES snows (snowID)
+) COLLATE = 'utf8_general_ci'
+  ENGINE = InnoDB;
+
+
+DELETE FROM `snows`;
+/*!40000 ALTER TABLE `snows`DISABLE KEYS */;
+
+INSERT INTO `snows` (`snowID`, `code`, `brand`, `model`, `snowLength`, `qtyAvailable`, `description`, `dailyPrice`, `photo`,
                      `active`)
 VALUES (1, 'B101', 'Burton', 'Custom', 160, 22,
         'La board la plus fiable de tous les temps, la solution snowboard pour tous les terrains. (Homme)', 29,
@@ -74,54 +121,3 @@ VALUES (1, 'B101', 'Burton', 'Custom', 160, 22,
 /*!40000 ALTER TABLE `snows`
     ENABLE KEYS */;
 
--- Export de la structure de la table snows. users
-CREATE TABLE IF NOT EXISTS `users`
-(
-    `id`               int(10) unsigned                                        NOT NULL AUTO_INCREMENT,
-    `userEmailAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `userHashPsw`      varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `pseudo`           varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `userEmailAddress` (`userEmailAddress`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
-
-/*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS = IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
-
-/*sql_DBImprovement.sql*/
-ALTER TABLE Users
-    CHANGE id IDUser INT(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-ALTER TABLE snows
-    CHANGE id IDSnow INT(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-ALTER TABLE users
-    ADD COLUMN userType INT(2) NOT NULL DEFAULT '1' AFTER userHashPsw;
-
-
-/*sql_createTableLocationsAndOrder.sql*/
-CREATE TABLE IF NOT EXISTS Locations
-(
-    IDLoc   INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    FKUser  INT(10) UNSIGNED NOT NULL,
-    FKSnow  INT(11) UNSIGNED NOT NULL,
-    DateLoc DATE,
-    QtyLoc  SMALLINT,
-    NbDLoc  SMALLINT,
-    PRIMARY KEY (`IDLoc`),
-    FOREIGN KEY (FKUser) REFERENCES users (IDUser),
-    FOREIGN KEY (FKSnow) REFERENCES snows (IDSnow)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
-
-/*sql_snowCreateAppliUser.sql*/
-
-/*Uncomment if needed*/
-/*
-CREATE USER 'appliConnector'@'localhost' IDENTIFIED BY '123qweasD$';
-GRANT SELECT, INSERT, UPDATE ON snows.* TO 'appliConnector'@'localhost';
-*/
