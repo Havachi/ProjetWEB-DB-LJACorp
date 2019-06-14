@@ -101,7 +101,7 @@ ALTER TABLE users
     ADD COLUMN userType INT(2) NOT NULL DEFAULT '1' AFTER userHashPsw;
 
 
-/*sql_createTableLocations.sql*/
+/*sql_createTableLocationsAndOrder.sql*/
 CREATE TABLE IF NOT EXISTS Locations
 (
     IDLoc   INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
