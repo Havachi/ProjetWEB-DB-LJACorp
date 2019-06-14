@@ -7,6 +7,7 @@
  *					03.06.2019 - creation du fichier et de l'entete
  *          		07.06.2019 - creation de l'IHM
  *					08.06.2019 - ajout de l'action //TODO
+ *					14.06.2019 - ajout de l action DisplayALeasing avec le code de la location, a tester
  */
 
 $title = 'Rent A Snow - Locations en cours';
@@ -30,7 +31,8 @@ ob_start();
 				<tr>
 					<?php
 					foreach	($leasing as $leasRow) : ?>
-					    <td><a href="index.php?action=//TODO"><?= $leasRow['IDLoc']; ?></a></td>
+						<!-- TODO: check IDLoc is working -->
+					    <td><a href="index.php?action='DisplayALeasing'&&code="<?=.$leasRow['IDLoc']?>"><?= $leasRow['IDLoc']; ?></a></td>
 						<td><?= $leasRow['userEmail']; ?></td>
 						<td><?= $leasRow['dateLoc']; ?></td>
 						<td><?= $leasRow['dateEndLoc']; ?></td>
