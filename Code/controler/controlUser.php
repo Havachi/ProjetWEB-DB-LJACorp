@@ -70,8 +70,8 @@ function register($registerRequest){
             }
             if ($corr){
                 createSession($userEmailAddress);
-                $_GET['registerError'] = false;
                 $_GET['action'] = "home";
+                $_GET['registerError'] = false;
                 require "view/home.php";
             }
         }else{
