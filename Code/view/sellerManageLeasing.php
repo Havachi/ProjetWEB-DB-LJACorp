@@ -39,7 +39,13 @@ ob_start();
 						<td><?= $tabRow['']; ?></td> //code
 						<td><?= $tabRow['']; ?></td> //quantite
 						<td><?= $tabRow['']; ?></td> //date retour
-						<td><?= $tabRow['']; ?></td> //statut + dropdown list
+						<td>
+							<?= $tabRow['']; ?> //statut + dropdown list
+							<select>
+								<option value="Rendu">Rendu</option>
+								<option value="En cours">En cours</option>
+							</select>
+						</td>
 					<?php endforeach; ?>
 				</tr>
 			</table>
