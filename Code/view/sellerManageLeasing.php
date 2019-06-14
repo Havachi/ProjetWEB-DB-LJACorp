@@ -6,6 +6,7 @@
  * Last Update :	Jonas.HAUTIER
  *					07.06.2019 - creation de l'entete et du fichier
  *					08.06.2019 - creation la structure du fichier (zones)
+ *					14.06.2019 - ajout des boutons de retour et d'envoi des modifications
  */
 
 $title = 'Rent A Snow - Gestion des retours';
@@ -44,8 +45,8 @@ ob_start();
 			</table>
 
             <!-- buttons -->
-            //vue d ensemble
-            //save modifs
+        	<button type="reset" class="btn btn-default">Retour à la vue d'ensemble</button>
+        	<button type="submit" class="btn btn-default">Enregistrer les modifications</button>
 		</form>
 	</article>
 

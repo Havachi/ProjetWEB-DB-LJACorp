@@ -69,8 +69,8 @@ if (isset($_GET['action'])) {
           require_once "controler/controlRent.php";
           manageALeasing(); //maybe some infos
       case 'test':
-          require_once "controler/controlRent.php";
-          test();
+          require_once "model/locationManager.php";
+
 
       default :
           require "view/home.php";
