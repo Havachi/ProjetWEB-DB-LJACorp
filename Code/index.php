@@ -65,6 +65,9 @@ if (isset($_GET['action'])) {
           require_once "controler/controlRent.php";
           mylocation();
           break;
+      case 'manageALeasing':
+          require_once "controler/controlRent.php";
+          manageALeasing(); //maybe some infos
       case 'test':
           require_once "controler/controlRent.php";
           test();
