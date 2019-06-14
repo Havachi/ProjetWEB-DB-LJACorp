@@ -124,7 +124,6 @@ function getUserID($userEmailAddress)
     $queryResult = executeQuerySelect($getUserIdQuery);
     if (count($queryResult) == 1) {
         $result = $queryResult[0]['IDUser'];
-
         return $result;
     }
 }
