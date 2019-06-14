@@ -6,6 +6,7 @@
  * Last Update :    Jonas.HAUTIER
  *					03.06.2019 - creation du fichier et de l'entete
  *          		07.06.2019 - creation de l'IHM
+ *					08.06.2019 - ajout de l'action //TODO
  */
 
 $title = 'Rent A Snow - Locations en cours';
@@ -29,7 +30,7 @@ ob_start();
 				<tr>
 					<?php
 					foreach	($leasing as $leasRow) : ?>
-					    <td><a href=""><?= $leasRow['IDLoc']; ?></a></td>
+					    <td><a href="index.php?action=//TODO"><?= $leasRow['IDLoc']; ?></a></td>
 						<td><?= $leasRow['userEmail']; ?></td>
 						<td><?= $leasRow['dateLoc']; ?></td>
 						<td><?= $leasRow['dateEndLoc']; ?></td>
