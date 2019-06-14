@@ -63,7 +63,7 @@ function registerNewAccount($userEmailAddress, $userPsw)
 
     $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
 
-    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' . $strSeparator . $userEmailAddress . $strSeparator . ',' . $strSeparator . $userHashPsw . $strSeparator . ')';
+    $registerQuery = 'INSERT INTO users (userEmailAddress,userHashPsw) VALUES (' . $strSeparator . $userEmailAddress . $strSeparator . ',' . $strSeparator . $userHashPsw . $strSeparator . ')';
 
     require_once 'model/dbConnector.php';
     $queryResult = executeQueryInsert($registerQuery);
@@ -110,8 +110,8 @@ function getUserType($userEmailAddress)
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserID from the DB, multiple use
  * @param $userEmailAddress The users Email Address
- * @return The user ID
- * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
+ * @return $result : The user ID
+ *
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserID($userEmailAddress)
 {
@@ -124,6 +124,27 @@ function getUserID($userEmailAddress)
     $queryResult = executeQuerySelect($getUserIdQuery);
     if (count($queryResult) == 1) {
         $result = $queryResult[0]['IDUser'];
+        return $result;
+    }
+}
+
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function get and return the UserEmail from the DB, multiple use
+ * @param $userID The users unique identifier
+ * @return $result :The user Email
+ *
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function getUserEmail($userID)
+{
+    $strSeparator = '\'';
+
+    $getUserEmailQuery = 'SELECT userEmailAddress FROM users WHERE IDUser =' . $strSeparator . $userID . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+
+    $queryResult = executeQuerySelect($getUserEmailQuery);
+    if (count($queryResult) == 1) {
+        $result = $queryResult[0]['userEmailAddress'];
         return $result;
     }
 }
