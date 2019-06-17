@@ -90,15 +90,15 @@ function LeasingQuery($completeLocationArray)
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function recover Leasing datas in DB
- * @param $IDloc : The location unique ID
+ * @param $userID : The User unique ID
  * @return array
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function LeasingRecover($IDloc)
+function LeasingRecover($userID)
 {
     $strSep = '\'';
     $completeLocationArray = array();
-    $query = "SELECT * FROM locations WHERE IDLoc=" . $strSep . $IDloc . $strSep;
+    $query = "SELECT * FROM locations WHERE FK_IDUser=" . $strSep . $userID . $strSep;
     require_once 'model/dbConnector.php';
     $completeLocationArray = executeQuerySelect($query);
     if ($completeLocationArray === null) {
