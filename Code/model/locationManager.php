@@ -26,43 +26,63 @@ function createLeasing($actualCart, $userEmail)
     $completeLocationArray = array();
     //UserID extraction
     require_once "model/usersManager.php";
+    $DateLocStart = "0";
 
+
+    foreach ($actualCart as $cart){
+
+
+    }
+    //TODO Create the arrays correclty
+
+      /*$cart['code'];
+        $cart['dateD'];
+        $cart['qty'];
+        $cart['nbD']; }*/
+    //Location Data Grouping
+    //convert userEmail to userID
     $userID = getUserID($userEmail);
     if ($userID === null) {
         throw new SiteUnderMaintenanceExeption;
     }
 
 
-    $flag = 0;
-    //Verifiacation that the cart isn't empty
-    //Single cart extraction
-    foreach ($actualCart as $cart) {
+    $timeStamp=strtotime($DateLocStart);
+    $timeStamp=$timeStamp+86400;
+    $DateOrderEnd=date("d-m-y",$timeStamp);
+    $LocStatus=0;
 
-        $snowCode = $cart['code'];
-        require_once "model/snowsManager.php";
-        $snowID = getSnowID($snowCode);
-        $dateLoc = $cart['dateD'];
-        $qtyLoc = $cart['qty'];
-        $nbdLoc = $cart['nbD'];
+    //Array Creation for orderedSnow table
+    $orderedSnowData = array(
+        'IDLoc' => $IDLocation,
+        'IdSnow' => $IDSnow,
+        'DateOrderEnd' => $DateOrderEnd,
+        'QtyOrder' => $QtyOrder,
+        'NbDOrder' => $NbdOrder,
+        'OrderStatus' => $OrderStatus
+    );
 
-        //Cart concatenation
-        $tempLocation = array(
-            "userID" => $userID,
-            "snowID" => $snowID,
-            "dateLoc" => $dateLoc,
-            "qtyLoc" => $qtyLoc,
-            "nbdLoc" => $nbdLoc,
-            "flag" => $flag
-        );
-        array_push($completeLocationArray, $tempLocation);
 
-        $flag++;
-    }
+
+    //Full Leasing Array Creation
+
+    //Array Creation for locations table
+    $locationData = array(
+        'UserID' => $userID,
+        'DateLocStart' => $DateLocStart,
+        'DateLocEnd' => $DateLocEnd,
+        'LocStatus' => $LocStatus
+    );
+
+
+    //Two Array Concatenation
+    array_push($completeLocationArray, $locationData, $orderedSnowData);
+
     LeasingQuery($completeLocationArray);
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
- * This function insert Leasing in DB
+ * This function insert Leasing data in DB
  * @param $completeLocationArray : The complete loaction datas
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
@@ -78,7 +98,7 @@ function LeasingQuery($completeLocationArray)
             $qtyloc = $location['qtyLoc'];
             $nbdLoc = $location['nbdLoc'];
             $strSeparator = '\'';
-            $locationInserQuery = 'INSERT INTO locations (FKUser, FKSnow, DateLoc, QtyLoc, NbDLoc) VALUES (' . $strSeparator . $userID . $strSeparator . ',' . $strSeparator . $snowID . $strSeparator . ',' . $strSeparator . $dateLoc . $strSeparator . ',' . $strSeparator . $qtyloc . $strSeparator . ',' . $strSeparator . $nbdLoc . $strSeparator . ')';
+            $locationInserQuery = 'INSERT INTO locations (FK_IDUser, DateLocStart,DateLocEnd,LocStatus) VALUES ()';
             require_once 'model/dbConnector.php';
             $queryResult = executeQueryInsert($locationInserQuery);
             if ($queryResult === null) {
@@ -97,7 +117,6 @@ function LeasingQuery($completeLocationArray)
 function LeasingRecover($userID)
 {
     $strSep = '\'';
-    $completeLocationArray = array();
     $query = "SELECT * FROM locations WHERE FK_IDUser=" . $strSep . $userID . $strSep;
     require_once 'model/dbConnector.php';
     $completeLocationArray = executeQuerySelect($query);
@@ -115,7 +134,7 @@ function LeasingRecover($userID)
  * @throws SiteUnderMaintenanceExeption : in case the database can't be reach or other bug,
  *                                        the function throw an Exception
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function displayleasingFormating($IDLocation)
+function displayLeasingFormatting($IDLocation)
 {
 
     /*
@@ -129,11 +148,7 @@ function displayleasingFormating($IDLocation)
 
     $strSep = '\'';
     $locID = $IDLocation;
-    $userEmail = "";
-    $locStart = "";
-    $locEnd = "";
-    $locStatus = "";
-    $leasing = array();
+
 
     $query = "SELECT FK_IDUser,DateLocStart,DateLocEnd,LocStatus FROM locations WHERE IDLoc =" . $strSep . $locID . $strSep;
     require_once 'model/dbConnector.php';
@@ -216,4 +231,14 @@ function changeOrderStatus($IDLocation, $snowCode)
         throw new SiteUnderMaintenanceExeption;
     }
     updateLocationStatus($IDLocation);
+}
+
+function dateCalculator($Datestart, $nbDayToAdd){
+    //TODO make this Function
+
+    //Get the date in parameters
+    //convert to Second AKA timestamp
+    //add the equivalent of a day in second
+    //convert back to date
+    //return the result
 }
