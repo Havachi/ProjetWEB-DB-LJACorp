@@ -19,6 +19,7 @@
  * @param $snowCode Which snow should be modified
  * @param $newStock
  * @return array
+ * @throws SiteUnderMaintenanceExeption
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  */
 function stockSet($snowCode,$newStock){
@@ -26,5 +27,8 @@ function stockSet($snowCode,$newStock){
     $query = "UPDATE snows SET qtyAvailable=".$strSep.$newStock.$strSep." WHERE code=".$strSep.$snowCode.$strSep.";";
     require_once 'model/dbConnector.php';
     $queryResult=executeQueryUpdate($query);
+    if($queryResult===null){
+        throw new SiteUnderMaintenanceExeption;
+    }
     return $queryResult;
 }

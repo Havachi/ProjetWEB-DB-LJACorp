@@ -1,5 +1,5 @@
 <?php
-//include "exceptions/SiteUnderMaintenanceExeption.php";
+
 
 /**
  *|File Info|
@@ -82,7 +82,7 @@ function registerNewAccount($userEmailAddress, $userPsw)
  * This function is designed to get the type of user
  * For the webapp, it will adapt the behavior of the GUI
  * @param $userEmailAddress
- * @return int (1 = customer ; 2 = seller)
+ * @return int : (1 = customer | 2 = seller)
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 
@@ -109,9 +109,9 @@ function getUserType($userEmailAddress)
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserID from the DB, multiple use
- * @param $userEmailAddress The users Email Address
- * @return $result : The user ID
- *
+ * @param $userEmailAddress : The users Email Address
+ * @return int : The user ID
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserID($userEmailAddress)
 {
@@ -122,17 +122,22 @@ function getUserID($userEmailAddress)
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($getUserIdQuery);
-    if (count($queryResult) == 1) {
-        $result = $queryResult[0]['IDUser'];
-        return $result;
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $result = $queryResult[0]['IDUser'];
+            return $result;
+        }
     }
+
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserEmail from the DB, multiple use
- * @param $userID The users unique identifier
- * @return $result :The user Email
- *
+ * @param $userID : The users unique identifier
+ * @return int : The user Email
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserEmail($userID)
 {
@@ -143,8 +148,14 @@ function getUserEmail($userID)
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($getUserEmailQuery);
-    if (count($queryResult) == 1) {
-        $result = $queryResult[0]['userEmailAddress'];
-        return $result;
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $result = $queryResult[0]['userEmailAddress'];
+            return $result;
+        }
     }
+
+
 }

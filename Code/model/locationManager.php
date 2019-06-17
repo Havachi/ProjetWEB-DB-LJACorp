@@ -14,16 +14,6 @@
  *  *~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*
  */
 
-/*  $completeLocationArray excepted values
- *  userID  = The User id
- *  snowID  = The Snow id
- *  dateLoc = When the Location was made
- *  qtyLoc  = How much Snow
- *  nbdLoc  = How much Days
- *  flag    = Used to differentiate multiple cart
- * */
-
-
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get Location Datas and transfer individual cart to the next function
@@ -31,79 +21,89 @@
  * @param $userEmail : The user Email Address
  * @throws SiteUnderMaintenanceExeption : in case the quarry didn't pass so the database is unreachable
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function createLeasing($actualCart, $userEmail){
+function createLeasing($actualCart, $userEmail)
+{
     $completeLocationArray = array();
     //UserID extraction
     require_once "model/usersManager.php";
 
     $userID = getUserID($userEmail);
-    if ($userID === null){
-            throw new SiteUnderMaintenanceExeption;
+    if ($userID === null) {
+        throw new SiteUnderMaintenanceExeption;
     }
 
 
-
-
     $flag = 0;
-   //Verifiacation that the cart isn't empty
-        //Single cart extraction
-        foreach ($actualCart as $cart){
+    //Verifiacation that the cart isn't empty
+    //Single cart extraction
+    foreach ($actualCart as $cart) {
 
-            $snowCode = $cart['code'];
-            require_once "model/snowsManager.php";
-            $snowID = getSnowID($snowCode);
-            $dateLoc = $cart['dateD'];
-            $qtyLoc = $cart['qty'];
-            $nbdLoc = $cart['nbD'];
+        $snowCode = $cart['code'];
+        require_once "model/snowsManager.php";
+        $snowID = getSnowID($snowCode);
+        $dateLoc = $cart['dateD'];
+        $qtyLoc = $cart['qty'];
+        $nbdLoc = $cart['nbD'];
 
-            //Cart concatenation
-            $tempLocation = array(
-                "userID" => $userID,
-                "snowID" => $snowID,
-                "dateLoc" => $dateLoc,
-                "qtyLoc" => $qtyLoc,
-                "nbdLoc" => $nbdLoc,
-                "flag" => $flag
-            );
-            array_push($completeLocationArray, $tempLocation);
+        //Cart concatenation
+        $tempLocation = array(
+            "userID" => $userID,
+            "snowID" => $snowID,
+            "dateLoc" => $dateLoc,
+            "qtyLoc" => $qtyLoc,
+            "nbdLoc" => $nbdLoc,
+            "flag" => $flag
+        );
+        array_push($completeLocationArray, $tempLocation);
 
-            $flag++;
-        }
-        LeasingQuery($completeLocationArray);
+        $flag++;
+    }
+    LeasingQuery($completeLocationArray);
 }
+
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function insert Leasing in DB
- * @param $completeLocationArray The complete loaction datas
+ * @param $completeLocationArray : The complete loaction datas
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function LeasingQuery($completeLocationArray){
+function LeasingQuery($completeLocationArray)
+{
 
 
-    if(isset($completeLocationArray)){
-        foreach ($completeLocationArray as $location){
-            $userID  = $location['userID'];
-            $snowID  = $location['snowID'];
+    if (isset($completeLocationArray)) {
+        foreach ($completeLocationArray as $location) {
+            $userID = $location['userID'];
+            $snowID = $location['snowID'];
             $dateLoc = $location['dateLoc'];
-            $qtyloc  = $location['qtyLoc'];
-            $nbdLoc  = $location['nbdLoc'];
+            $qtyloc = $location['qtyLoc'];
+            $nbdLoc = $location['nbdLoc'];
             $strSeparator = '\'';
-            $locationInserQuery = 'INSERT INTO locations (FKUser, FKSnow, DateLoc, QtyLoc, NbDLoc) VALUES ('.$strSeparator.$userID.$strSeparator.','.$strSeparator.$snowID.$strSeparator.','.$strSeparator.$dateLoc.$strSeparator.','.$strSeparator.$qtyloc.$strSeparator.','.$strSeparator.$nbdLoc.$strSeparator.')';
+            $locationInserQuery = 'INSERT INTO locations (FKUser, FKSnow, DateLoc, QtyLoc, NbDLoc) VALUES (' . $strSeparator . $userID . $strSeparator . ',' . $strSeparator . $snowID . $strSeparator . ',' . $strSeparator . $dateLoc . $strSeparator . ',' . $strSeparator . $qtyloc . $strSeparator . ',' . $strSeparator . $nbdLoc . $strSeparator . ')';
             require_once 'model/dbConnector.php';
-            executeQueryInsert($locationInserQuery);
+            $queryResult = executeQueryInsert($locationInserQuery);
+            if ($queryResult === null) {
+                throw new SiteUnderMaintenanceExeption;
+            }
         }
     }
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function recover Leasing datas in DB
- * @param $IDloc The location unique ID
+ * @param $IDloc : The location unique ID
  * @return array
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function LeasingRecover($IDloc){
+function LeasingRecover($IDloc)
+{
     $strSep = '\'';
     $completeLocationArray = array();
     $query = "SELECT * FROM locations WHERE IDLoc=" . $strSep . $IDloc . $strSep;
     require_once 'model/dbConnector.php';
     $completeLocationArray = executeQuerySelect($query);
+    if ($completeLocationArray === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
 
     return $completeLocationArray;
 }
@@ -115,7 +115,8 @@ function LeasingRecover($IDloc){
  * @throws SiteUnderMaintenanceExeption : in case the database can't be reach or other bug,
  *                                        the function throw an Exception
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function displayleasingFormating($IDLocation){
+function displayleasingFormating($IDLocation)
+{
 
     /*
      *   Location: id de la location --> IDLoc
@@ -126,33 +127,28 @@ function displayleasingFormating($IDLocation){
      *
      * */
 
-    $strSep= '\'';
-    $locID=$IDLocation;
-    $userEmail="";
-    $locStart="";
-    $locEnd="";
-    $locStatus="";
-    $leasing=array();
+    $strSep = '\'';
+    $locID = $IDLocation;
+    $userEmail = "";
+    $locStart = "";
+    $locEnd = "";
+    $locStatus = "";
+    $leasing = array();
 
-    $query= "SELECT FK_IDUser,DateLocStart,DateLocEnd,LocStatus FROM locations WHERE IDLoc =". $strSep . $locID . $strSep;
+    $query = "SELECT FK_IDUser,DateLocStart,DateLocEnd,LocStatus FROM locations WHERE IDLoc =" . $strSep . $locID . $strSep;
     require_once 'model/dbConnector.php';
 
     $queryResult = executeQuerySelect($query);
-    if($queryResult===null or $queryResult===false){
+    if ($queryResult === null) {
         throw new SiteUnderMaintenanceExeption;
-    }else{
+    } else {
         require_once 'model/usersManager.php';
-        $userEmail=getUserEmail($queryResult[0]['FK_IDUser']);
-        if($userEmail===null or $userEmail === false or $userEmail == ""){
-            throw new SiteUnderMaintenanceExeption;
-        }else{
-            $locStart=$queryResult[0]['DateLocStart'];
-            $locEnd=$queryResult[0]['DateLocEnd'];
-            $locStatus=$queryResult[0]['LocStatus'];
+        $userEmail = getUserEmail($queryResult[0]['FK_IDUser']);
+        $locStart = $queryResult[0]['DateLocStart'];
+        $locEnd = $queryResult[0]['DateLocEnd'];
+        $locStatus = $queryResult[0]['LocStatus'];
 
-            $leasing = array('locID' => $locID,'userEmail' => $userEmail ,'locStart' => $locStart ,'locEnd' => $locEnd ,'locStatus' => $locStatus);
-
-        }
+        $leasing = array('locID' => $locID, 'userEmail' => $userEmail, 'locStart' => $locStart, 'locEnd' => $locEnd, 'locStatus' => $locStatus);
     }
     return $leasing;
 }
@@ -161,34 +157,43 @@ function displayleasingFormating($IDLocation){
  * This function is made to automatically update the Location status if needed after any
  * status change on the interface
  * @param $IDLocation : the unique Location identifier.
+ * @throws SiteUnderMaintenanceExeption : If the database can't be reached
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function updateLocationStatus($IDLocation){
+function updateLocationStatus($IDLocation)
+{
 
     $strSeparator = '\'';
-    $locUpdatedStatus=0;
+    $locUpdatedStatus = 0;
     //count how much Order in that Location
-    $queryCountLoc = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE FK_IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
+    $queryCountLoc = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE FK_IDLoc =' . $strSeparator . $IDLocation . $strSeparator;
     require_once 'model/dbConnector.php';
-    $locTotalOrder=executeQuerySelect($queryCountLoc);
-
+    $locTotalOrder = executeQuerySelect($queryCountLoc);
+    if ($locTotalOrder === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
     //Count how much OrderStatus is at 1 in that location
-    $queryCountOrder = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE OrderStatus = 1 AND FK_IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
+    $queryCountOrder = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE OrderStatus = 1 AND FK_IDLoc =' . $strSeparator . $IDLocation . $strSeparator;
     require_once 'model/dbConnector.php';
-    $locRendu=executeQuerySelect($queryCountOrder);
+    $locRendu = executeQuerySelect($queryCountOrder);
+    if ($locRendu === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
     //if the 2 number are equal set the Location to 2
 
 
-
-    if($locTotalOrder == $locRendu){
-        $locUpdatedStatus= 2;
-    }elseif ($locRendu > 0 && $locRendu < $locTotalOrder){
+    if ($locTotalOrder == $locRendu) {
+        $locUpdatedStatus = 2;
+    } elseif ($locRendu > 0 && $locRendu < $locTotalOrder) {
         $locUpdatedStatus = 1;
     }
 
     //replace actual locStatus if needed
-    if($locUpdatedStatus != 0){
-        $queryUpdate= 'UPDATE locations SET LocStatus='.$strSeparator.$locUpdatedStatus.$strSeparator.'WHERE IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
-        executeQueryUpdate($queryUpdate);
+    if ($locUpdatedStatus != 0) {
+        $queryUpdate = 'UPDATE locations SET LocStatus=' . $strSeparator . $locUpdatedStatus . $strSeparator . ' WHERE IDLoc =' . $strSeparator . $IDLocation . $strSeparator;
+        $queryResult = executeQueryUpdate($queryUpdate);
+        if ($queryResult === null) {
+            throw new SiteUnderMaintenanceExeption;
+        }
     }
 }
 
@@ -199,12 +204,16 @@ function updateLocationStatus($IDLocation){
  * thing to do, set it to "Rendu" or "1" in the database, any other move isn't relevant.
  * @param $IDLocation : the unique Location identifier.
  * @param $snowCode : The new status that will replace the old one.
+ * @throws SiteUnderMaintenanceExeption : If the database can't be reached
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function changeOrderStatus($IDLocation, $snowCode){
+function changeOrderStatus($IDLocation, $snowCode)
+{
     $strSeparator = '\'';
-    $query='UPDATE orderedsnow SET OrderStatus = 1 WHERE FK_IDLoc ='. $strSeparator.$IDLocation.$strSeparator.' AND FK_IDSnow='.$strSeparator.$snowCode.$strSeparator;
+    $query = 'UPDATE orderedsnow SET OrderStatus = 1 WHERE FK_IDLoc =' . $strSeparator . $IDLocation . $strSeparator . ' AND FK_IDSnow=' . $strSeparator . $snowCode . $strSeparator;
     require "model/dbConnector.php";
-    executeQueryUpdate($query);
-
+    $queryResult = executeQueryUpdate($query);
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
     updateLocationStatus($IDLocation);
 }
