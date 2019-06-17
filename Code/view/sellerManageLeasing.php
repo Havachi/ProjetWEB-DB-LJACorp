@@ -6,6 +6,7 @@
  * Last Update :	Jonas.HAUTIER
  *					07.06.2019 - creation de l'entete et du fichier
  *					08.06.2019 - creation la structure du fichier (zones)
+ *					14.06.2019 - ajout des boutons de retour et d'envoi des modifications
  */
 
 $title = 'Rent A Snow - Gestion des retours';
@@ -38,14 +39,20 @@ ob_start();
 						<td><?= $tabRow['']; ?></td> //code
 						<td><?= $tabRow['']; ?></td> //quantite
 						<td><?= $tabRow['']; ?></td> //date retour
-						<td><?= $tabRow['']; ?></td> //statut + dropdown list
+						<td>
+							<?= $tabRow['']; ?> //statut + dropdown list
+							<select>
+								<option value="Rendu">Rendu</option>
+								<option value="En cours">En cours</option>
+							</select>
+						</td>
 					<?php endforeach; ?>
 				</tr>
 			</table>
 
             <!-- buttons -->
-            //vue d ensemble
-            //save modifs
+        	<button type="reset" class="btn btn-default">Retour à la vue d'ensemble</button>
+        	<button type="submit" class="btn btn-default">Enregistrer les modifications</button>
 		</form>
 	</article>
 

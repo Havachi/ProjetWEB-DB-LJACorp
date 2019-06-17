@@ -44,6 +44,10 @@ function locationRequest(){
 function myLocation(){
     require "view/leasing.php";
 }
+//TODO
+function displayALeasing(){
+    $idLoc = $_GET["code"];
+}
 
 function test(){
     $leasing = array(
