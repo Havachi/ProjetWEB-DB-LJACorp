@@ -7,6 +7,8 @@
  *					07.06.2019 - creation de l'entete et du fichier
  *					08.06.2019 - creation la structure du fichier (zones)
  *					14.06.2019 - ajout des boutons de retour et d'envoi des modifications
+ *					17.06.2019 - ajout de l action pour d'une action pour le formulaire
+ *							   - bouton retour mis en place
  */
 
 $title = 'Rent A Snow - Gestion des retours';
@@ -18,12 +20,10 @@ ob_start();
 	<article>
 
 		<!-- summary -->
-        <form>
-            //location
-            //email
-            //prise
-            //retour
-            //statut
+        <form class="form" method="post" action="index.php?action=//TODO">
+			<p>Location : <?= $leasRow['IDLoc']?>&emsp;&emsp;Email : <?= $leasRow['userEmail']?></p>
+			<p>Prise : <?= $leasRow['dateLoc']?>&emsp;&emsp;Retour : <?= $leasRow['dateEndLoc']?></p>
+			<p>Status : <?= $leasRow['statusLoc']?></p>
 
 		    <!-- table -->
 			<table class="table">
@@ -35,12 +35,12 @@ ob_start();
 				</tr>
 				<tr>
 					<?php
-					foreach	($snow as $tabRow) : ?>
-						<td><?= $tabRow['']; ?></td> //code
-						<td><?= $tabRow['']; ?></td> //quantite
-						<td><?= $tabRow['']; ?></td> //date retour
+					foreach	($snowLoc as $LocRow) : ?>
+						<td><?= $locRow['']; ?></td> //code
+						<td><?= $locRow['']; ?></td> //quantite
+						<td><?= $locRow['']; ?></td> //date retour
 						<td>
-							<?= $tabRow['']; ?> //statut + dropdown list
+							<?= $locRow['']; ?> //status dropdown list
 							<select>
 								<option value="Rendu">Rendu</option>
 								<option value="En cours">En cours</option>
@@ -51,7 +51,9 @@ ob_start();
 			</table>
 
             <!-- buttons -->
-        	<button type="reset" class="btn btn-default">Retour à la vue d'ensemble</button>
+        	<a href="action=index.php?action=myLocation">
+				<button type="reset" class="btn btn-default">Retour à la vue d'ensemble</button>
+			</a>
         	<button type="submit" class="btn btn-default">Enregistrer les modifications</button>
 		</form>
 	</article>
