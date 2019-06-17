@@ -79,8 +79,6 @@ function LeasingQuery($completeLocationArray){
 
 
     if(isset($completeLocationArray)){
-
-
         foreach ($completeLocationArray as $location){
             $userID  = $location['userID'];
             $snowID  = $location['snowID'];
@@ -110,6 +108,13 @@ function LeasingRecover($IDloc){
     return $completeLocationArray;
 }
 
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function will gather and recover all data needed in the locationseller view.
+ * @param $IDLocation : the unique Location identifier
+ * @return array : It return the full array with all needed data
+ * @throws SiteUnderMaintenanceExeption : in case the database can't be reach or other bug,
+ *                                        the function throw an Exception
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function displayleasingFormating($IDLocation){
 
     /*
@@ -127,19 +132,79 @@ function displayleasingFormating($IDLocation){
     $locStart="";
     $locEnd="";
     $locStatus="";
+    $leasing=array();
 
     $query= "SELECT FK_IDUser,DateLocStart,DateLocEnd,LocStatus FROM locations WHERE IDLoc =". $strSep . $locID . $strSep;
     require_once 'model/dbConnector.php';
+
     $queryResult = executeQuerySelect($query);
+    if($queryResult===null or $queryResult===false){
+        throw new SiteUnderMaintenanceExeption;
+    }else{
+        require_once 'model/usersManager.php';
+        $userEmail=getUserEmail($queryResult[0]['FK_IDUser']);
+        if($userEmail===null or $userEmail === false or $userEmail == ""){
+            throw new SiteUnderMaintenanceExeption;
+        }else{
+            $locStart=$queryResult[0]['DateLocStart'];
+            $locEnd=$queryResult[0]['DateLocEnd'];
+            $locStatus=$queryResult[0]['LocStatus'];
 
-    require_once 'model/usersManager.php';
-    $userEmail=getUserEmail($queryResult[0]['FK_IDUser']);
+            $leasing = array('locID' => $locID,'userEmail' => $userEmail ,'locStart' => $locStart ,'locEnd' => $locEnd ,'locStatus' => $locStatus);
 
-    $locStart=$queryResult[0]['DateLocStart'];
-    $locEnd=$queryResult[0]['DateLocEnd'];
-    $locStatus=$queryResult[0]['LocStatus'];
-
-    $leasing = array('locID' => $locID,'userEmail' => $userEmail ,'locStart' => $locStart ,'locEnd' => $locEnd ,'locStatus' => $locStatus);
+        }
+    }
     return $leasing;
 }
 
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function is made to automatically update the Location status if needed after any
+ * status change on the interface
+ * @param $IDLocation : the unique Location identifier.
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function updateLocationStatus($IDLocation){
+
+    $strSeparator = '\'';
+    $locUpdatedStatus=0;
+    //count how much Order in that Location
+    $queryCountLoc = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE FK_IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
+    require_once 'model/dbConnector.php';
+    $locTotalOrder=executeQuerySelect($queryCountLoc);
+
+    //Count how much OrderStatus is at 1 in that location
+    $queryCountOrder = 'SELECT COUNT(FK_IDLoc) FROM orderedsnow WHERE OrderStatus = 1 AND FK_IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
+    require_once 'model/dbConnector.php';
+    $locRendu=executeQuerySelect($queryCountOrder);
+    //if the 2 number are equal set the Location to 2
+
+
+
+    if($locTotalOrder == $locRendu){
+        $locUpdatedStatus= 2;
+    }elseif ($locRendu > 0 && $locRendu < $locTotalOrder){
+        $locUpdatedStatus = 1;
+    }
+
+    //replace actual locStatus if needed
+    if($locUpdatedStatus != 0){
+        $queryUpdate= 'UPDATE locations SET LocStatus='.$strSeparator.$locUpdatedStatus.$strSeparator.'WHERE IDLoc ='.$strSeparator.$IDLocation.$strSeparator;
+        executeQueryUpdate($queryUpdate);
+    }
+}
+
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function is made to update value in database when a status is changed on the
+ * interface.
+ * This function doesn't need any value to set the order to, because there is only one
+ * thing to do, set it to "Rendu" or "1" in the database, any other move isn't relevant.
+ * @param $IDLocation : the unique Location identifier.
+ * @param $snowCode : The new status that will replace the old one.
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function changeOrderStatus($IDLocation, $snowCode){
+    $strSeparator = '\'';
+    $query='UPDATE orderedsnow SET OrderStatus = 1 WHERE FK_IDLoc ='. $strSeparator.$IDLocation.$strSeparator.' AND FK_IDSnow='.$strSeparator.$snowCode.$strSeparator;
+    require "model/dbConnector.php";
+    executeQueryUpdate($query);
+
+    updateLocationStatus($IDLocation);
+}
