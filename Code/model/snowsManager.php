@@ -67,7 +67,6 @@ function getASnow($snow_code)
 function getSnowQty($snowCode)
 {
     $strSep = '\'';
-    $snowQty = 0;
     $query = "SELECT qtyAvailable FROM snows WHERE code=" . $strSep . $snowCode . $strSep;
     require_once 'model/dbConnector.php';
     $snowQty = executeQuerySelect($query);
@@ -86,7 +85,6 @@ function getSnowQty($snowCode)
 function getSnowID($snowCode)
 {
     $strSep = '\'';
-    $IDSnow = 0;
     $query = 'SELECT IDSnow FROM snows WHERE code=' . $strSep . $snowCode . $strSep;
     require_once 'model/dbConnector.php';
     $IDSnow = executeQuerySelect($query);

@@ -15,9 +15,9 @@
 
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
- * This function remove n item in stock, this append when a leasing is completed
- * @param $snowCode Which snow should be modified
- * @param $newStock
+ * This function remove n-item in stock, this append when a leasing is completed
+ * @param $snowCode : The Snow Code in DB
+ * @param $newStock : The New stock that will replace the old one
  * @return array
  * @throws SiteUnderMaintenanceExeption
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~

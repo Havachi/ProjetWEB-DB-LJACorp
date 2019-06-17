@@ -37,7 +37,6 @@ function isLoginCorrect($userEmailAddress, $userPsw)
     } else {
         if (count($queryResult) == 1) {
             $userHashPsw = $queryResult[0]['userHashPsw'];
-            $hashPasswordDebug = password_hash($userPsw, PASSWORD_DEFAULT);
             $result = password_verify($userPsw, $userHashPsw);
         }
         return $result;
@@ -115,6 +114,7 @@ function getUserType($userEmailAddress)
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserID($userEmailAddress)
 {
+    $result = 0;
     $strSeparator = '\'';
 
     $getUserIdQuery = 'SELECT IDUser FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
@@ -127,21 +127,22 @@ function getUserID($userEmailAddress)
     } else {
         if (count($queryResult) == 1) {
             $result = $queryResult[0]['IDUser'];
-            return $result;
+
         }
     }
-
+    return $result;
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserEmail from the DB, multiple use
  * @param $userID : The users unique identifier
- * @return int : The user Email
+ * @return String : The user Email
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserEmail($userID)
 {
     $strSeparator = '\'';
+    $result="";
 
     $getUserEmailQuery = 'SELECT userEmailAddress FROM users WHERE IDUser =' . $strSeparator . $userID . $strSeparator;
 
@@ -153,9 +154,9 @@ function getUserEmail($userID)
     } else {
         if (count($queryResult) == 1) {
             $result = $queryResult[0]['userEmailAddress'];
-            return $result;
+
         }
     }
 
-
+    return $result;
 }
