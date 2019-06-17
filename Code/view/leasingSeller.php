@@ -19,7 +19,7 @@ ob_start();
 	<article>
 
 		<!-- leasing table -->
-		<form>
+		<form class="form">
 			<table class="table">
 				<tr>
           			<th>Location</th> <!-- id de la location + redirect to details -->
