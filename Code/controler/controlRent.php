@@ -42,7 +42,22 @@ function locationRequest(){
  * @param -
  */
 function myLocation(){
-    require "view/leasing.php";
+    if (isset($_SESSION['userType'])) {
+        switch ($_SESSION['userType']) {
+            case 1://this is a customer
+                require "view/leasing.php";
+                break;
+            case 2://this a seller
+                require "view/leasingSeller.php.php";
+                break;
+            default:
+                require "view/leasing.php";
+                break;
+        }
+    }else{
+        $_GET['login'] = TRUE;
+        require "view/login.php";
+    }
 }
 //TODO
 function displayALeasing(){
