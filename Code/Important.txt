@@ -1,0 +1,13 @@
+About Location and OrderedSnow table:
+
+    -Location table contain IDs from OrderedSnow like an array
+    -Order IDs values is independent from Location IDs
+
+    OrderStatus values:
+        0 = "Pas rendu"
+        1 = "Rendu"
+
+    LocStatus values:
+        0 = "Pas Rendu"
+        1 = "Rendu Partiel"
+        2 = "Rendu"
