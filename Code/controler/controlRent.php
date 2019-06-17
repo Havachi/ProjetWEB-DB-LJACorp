@@ -38,24 +38,52 @@ function locationRequest(){
 }
 
 /**
- * This function is designed to redirect the user to his/her snows locations
- * @param -
+ * This function is designed to redirect the user to his/her snows locations.
+ * if the user is a custommer, he will see his locations
+ * If the user is a seller //TODO
  */
 function myLocation(){
+    //if userType is set. else, we redirect the user to the login page
     if (isset($_SESSION['userType'])) {
         switch ($_SESSION['userType']) {
             case 1://this is a customer
+                if(!isset($_SESSION['userID'])){
+                    require_once "model/usersManager.php";
+                    $_SESSION['userID'] = getUserID($_SESSION['userEmailAddress']);
+                }
+                require_once "model/locationManager.php";
+                try {
+                    $leasing = LeasingRecover($_SESSION['userID']); //TODO tester cette fonction
+                }catch(SiteUnderMaintenanceExeption $errormsg){
+                    require "view/home.php";
+                    die();
+                }
                 require "view/leasing.php";
                 break;
             case 2://this a seller
-                require "view/leasingSeller.php.php";
+                require "view/leasingSeller.php";
                 break;
             default:
+                //if user id is unknown, we get it
+                if(!isset($_SESSION['userID'])){
+                    require_once "model/usersManager.php";
+                    $_SESSION['userID'] = getUserID($_SESSION['userEmailAddress']);
+                }
+                //get user locations
+                require_once "model/locationManager.php";
+                try {
+                    $leasing = LeasingRecover($_SESSION['userID']); //TODO tester cette fonction
+                }catch(SiteUnderMaintenanceExeption $errormsg){
+                    require "view/home.php";
+                    die();
+                }
+                //refirect to leasing page
                 require "view/leasing.php";
                 break;
         }
     }else{
-        $_GET['login'] = TRUE;
+        //redirect to login page with an error
+        $_GET['notlog'] = TRUE;
         require "view/login.php";
     }
 }
