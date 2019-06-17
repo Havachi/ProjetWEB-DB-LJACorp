@@ -87,7 +87,7 @@
                                 <?php else :?>
                                     <li><a href="index.php?action=logout">Logout</a></li>
                                 <?php endif; ?>
-                                <?php if(isset($_SESSION['cart'])&&(count($_SESSION['cart'])!=0) :?>
+                                <?php if(isset($_SESSION['cart'])&&(count($_SESSION['cart'])!=0)) :?>
                                     <li><a href="index.php?action=displayCart"><img src="view/content/images/cart.png">  <?=  count($_SESSION['cart']);?> snow(s)</a></li>
                                 <?php endif; ?>
 								<!-- On affiche le tab Vos Locations une fois la session de location active -->
