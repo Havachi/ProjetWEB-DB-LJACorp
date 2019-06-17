@@ -33,7 +33,7 @@ ob_start();
 					foreach	($leasing as $leasRow) : ?>
 						<!-- TODO: check IDLoc is working -->
 					    <td>
-							<a href="index.php?action='DisplayALeasing&&code="<?=.$leasRow['IDLoc']?>"><?= $leasRow['IDLoc']; ?>"></a>
+							<a href="index.php?action='DisplayALeasing&&code="<?=.$leasRow['IDLoc']?>"></a>
 						</td>
 						<td><?= $leasRow['userEmail']; ?></td>
 						<td><?= $leasRow['dateLoc']; ?></td>
