@@ -82,7 +82,7 @@ CREATE TABLE `OrderedSnow`
     NbDOrder     SMALLINT(6),
     OrderStatus  SMALLINT(2),
     PRIMARY KEY (`IDOrder`),
-    FOREIGN KEY (FK_IDLoc) REFERENCES users (userID),
+    FOREIGN KEY (FK_IDLoc) REFERENCES Locations (IDLoc) ,
     FOREIGN KEY (FK_IDSnow) REFERENCES snows (snowID)
 ) COLLATE = 'utf8_general_ci'
   ENGINE = InnoDB;
