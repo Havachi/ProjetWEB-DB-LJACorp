@@ -8,7 +8,7 @@
  *					Jonas.HAUTIER
  *					27.05.2019 - Modification de l'entete et du title.
  */
- 
+
 $title = 'Rent A Snow - Demande de location';
 
 ob_start();
@@ -48,7 +48,7 @@ ob_start();
             <table class="table">
                 <tr>
                     <td>Quantité :</td>
-                    <td><input type="number" placeholder="Entrez la quantité" name="inputQuantity" required value=""
+                    <td><input type="number" placeholder="Entrez la quantité" name="inputQuantity" value=""
                                required>
                     <td>
                 </tr>
