@@ -45,7 +45,7 @@ ob_start();
 						<?= $locRow['']; ?> //status dropdown list
 						<select>
 							<!-- case "rendu" -->
-							<?php if(($locRow['OrderStatus']) == 0))) :?>
+							<?php if(($locRow['OrderStatus']) == 0) :?>
 								<option default value="Rendu">Rendu</option>
 								<option value="En cours">En cours</option>
 							<!-- case "en cours" -->
