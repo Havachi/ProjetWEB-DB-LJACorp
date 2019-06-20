@@ -33,12 +33,21 @@ ob_start();
 					foreach	($leasing as $leasRow) : ?>
 						<!-- TODO: check IDLoc is working -->
 					    <td>
-							<a href="index.php?action='DisplayALeasing&&code="<?=.$leasRow['IDLoc']?>"></a>
+							<a href="index.php?action='DisplayALeasing&&code=<?=.$leasRow['IDLoc"']?>"></a>
 						</td>
 						<td><?= $leasRow['userEmail']; ?></td>
 						<td><?= $leasRow['dateLoc']; ?></td>
 						<td><?= $leasRow['dateEndLoc']; ?></td>
-						<td><?= $leasRow['statusLoc']; ?></td>
+						<!-- case "en cours" -->
+						<?php if(($locRow['LocStatus']) == 0))) :?>
+							<td>En cours</td>
+						<!-- case "rendu partiel" -->
+						<?php elseif(($locRow['LocStatus']) == 1:?>
+							<td>Rendu partiel</td>
+						<!-- case "rendu" -->
+						<?php else :?>
+							<td>Rendu</td>
+						<?php endif; ?>
 					<?php endforeach; ?>
 				</tr>
 			</table>
