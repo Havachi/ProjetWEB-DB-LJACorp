@@ -28,32 +28,42 @@ ob_start();
 		    <!-- table -->
 			<table class="table">
 			    <tr>
+					<!-- headers -->
           			<th>Code</th>
           			<th>Quantité</th>
           			<th>Date retour</th>
           			<th>Status</th>
 				</tr>
+				<!-- datas -->
+				<?php
+				foreach	($snowLoc as $LocRow) : ?>
 				<tr>
-					<?php
-					foreach	($snowLoc as $LocRow) : ?>
-						<td><?= $locRow['']; ?></td> //code
-						<td><?= $locRow['']; ?></td> //quantite
-						<td><?= $locRow['']; ?></td> //date retour
-						<td>
-							<?= $locRow['']; ?> //status dropdown list
-							<select>
-								<option value="Rendu">Rendu</option>
+					<td><?= $locRow['']; ?></td> //code
+					<td><?= $locRow['']; ?></td> //quantite
+					<td><?= $locRow['']; ?></td> //date retour
+					<td>
+						<?= $locRow['']; ?> //status dropdown list
+						<select>
+							<!-- case "rendu" -->
+							<?php if(($locRow['OrderStatus']) == 0))) :?>
+								<option default value="Rendu">Rendu</option>
 								<option value="En cours">En cours</option>
-							</select>
-						</td>
-					<?php endforeach; ?>
+							<!-- case "en cours" -->
+                            <?php else :?>
+								<option value="Rendu">Rendu</option>
+								<option default value="En cours">En cours</option>
+                            <?php endif; ?>
+						</select>
+					</td>
 				</tr>
+				<?php endforeach; ?>
 			</table>
 
-            <!-- buttons -->
+            <!-- button return -->
         	<a href="action=index.php?action=myLocation">
-				<button type="reset" class="btn btn-default">Retour à la vue d'ensemble</button>
+				<button type="button" class="btn btn-default">Retour à la vue d'ensemble</button>
 			</a>
+			<!-- button save modif -->
         	<button type="submit" class="btn btn-default">Enregistrer les modifications</button>
 		</form>
 	</article>
