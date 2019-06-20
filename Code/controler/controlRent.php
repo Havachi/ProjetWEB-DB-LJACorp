@@ -101,7 +101,7 @@ function test(){
             "snowModel" => "Hozor",
             "dailyPrice" => 2,
             "qtyLoc" => 12,
-            "dateLoc" => date("D-M-Y")
+            "dateLoc" => date("d/m/Y")
         ],
         [
             'IDLoc' => 'b122',
@@ -110,7 +110,7 @@ function test(){
             "snowModel" => "Hozor",
             "dailyPrice" => 2,
             "qtyLoc" => 12,
-            "dateLoc" => date("D-M-Y")
+            "dateLoc" => date("d/m/Y")
         ]
     );
 
