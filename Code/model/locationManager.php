@@ -26,13 +26,11 @@ function createLeasing($actualCart, $userEmail)
     $completeLocationArray = array();
     //UserID extraction
     require_once "model/usersManager.php";
-    $DateLocStart = "0";
+    $DateLocStart=date('d/m/Y');
+    $tempNbDOrder=0;
 
 
-    foreach ($actualCart as $cart){
 
-
-    }
     //TODO Create the arrays correclty
 
       /*$cart['code'];
@@ -41,31 +39,49 @@ function createLeasing($actualCart, $userEmail)
         $cart['nbD']; }*/
     //Location Data Grouping
     //convert userEmail to userID
+
+
+/*
+    $timeStamp=strtotime($DateLocStart);
+    $timeStamp=$timeStamp+86400;
+    $DateOrderEnd=date("d-m-y",$timeStamp);
+    $LocStatus=0;
+*/
+    $allOrderedSnowData=array();
+
+    foreach ($actualCart as $cart){
+        //Data from cart Extraction
+        $IDSnow=$cart['code'];
+        $dateDCart= $cart['dateD'];
+        $nbDCart=$cart['nbD'];
+        $DateOrderEnd= date('d/m/Y', strtotime($dateDCart. ' + '.$nbDCart.' days'));
+
+        $QtyOrder=$cart['qty'];
+        $NbdOrder=$cart['nbD'];
+        $OrderStatus=0;
+        //Define the biggest NbD
+        if($NbdOrder > $tempNbDOrder){
+            $tempNbDOrder = $NbdOrder;
+        }
+
+        //Array Creation for orderedSnow table
+        $orderedSnowData = array(
+            'IdSnow' => $IDSnow,
+            'DateOrderEnd' => $DateOrderEnd,
+            'QtyOrder' => $QtyOrder,
+            'NbDOrder' => $NbdOrder,
+            'OrderStatus' => $OrderStatus
+        );
+
+        $allOrderedSnowData=$allOrderedSnowData+$orderedSnowData;
+    }
     $userID = getUserID($userEmail);
     if ($userID === null) {
         throw new SiteUnderMaintenanceExeption;
     }
 
-
-    $timeStamp=strtotime($DateLocStart);
-    $timeStamp=$timeStamp+86400;
-    $DateOrderEnd=date("d-m-y",$timeStamp);
+    $DateLocEnd=date('d/m/Y', strtotime($DateLocStart. ' + '.$tempNbDOrder.' days'));
     $LocStatus=0;
-
-    //Array Creation for orderedSnow table
-    $orderedSnowData = array(
-        'IDLoc' => $IDLocation,
-        'IdSnow' => $IDSnow,
-        'DateOrderEnd' => $DateOrderEnd,
-        'QtyOrder' => $QtyOrder,
-        'NbDOrder' => $NbdOrder,
-        'OrderStatus' => $OrderStatus
-    );
-
-
-
-    //Full Leasing Array Creation
-
     //Array Creation for locations table
     $locationData = array(
         'UserID' => $userID,
@@ -73,7 +89,6 @@ function createLeasing($actualCart, $userEmail)
         'DateLocEnd' => $DateLocEnd,
         'LocStatus' => $LocStatus
     );
-
 
     //Two Array Concatenation
     array_push($completeLocationArray, $locationData, $orderedSnowData);
@@ -237,8 +252,11 @@ function dateCalculator($Datestart, $nbDayToAdd){
     //TODO make this Function
 
     //Get the date in parameters
-    //convert to Second AKA timestamp
-    //add the equivalent of a day in second
-    //convert back to date
+
+
+
+
+
     //return the result
+
 }
