@@ -75,7 +75,9 @@ if (isset($_GET['action'])) {
       case 'test':
           require_once "model/locationManager.php";
           createLeasing($_SESSION['cart'], $_SESSION['userEmailAddress']);
-
+      case 'displayALeasing':
+          require_once "controler/controlRent.php";
+          displayALeasing();
       default :
           require "view/home.php";
   }

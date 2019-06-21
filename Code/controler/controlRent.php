@@ -90,7 +90,13 @@ function myLocation(){
 }
 //TODO
 function displayALeasing(){
-    $idLoc = $_GET["code"];
+    if(isset($_GET['code'])){
+        $idLoc = $_GET["code"];
+        require_once "view/sellerManageLeasing.php";
+    }
+    else{
+        require_once "view/home.php";
+    }
 }
 
 function test(){
