@@ -22,6 +22,7 @@ function locationRequest(){
             try {
                 createLeasing($_SESSION['cart'], $_SESSION['userEmailAddress']);
                 $_SESSION['cart'] = array();
+                //FIXME location.php doesn't exist
                 $_GET['action'] = "myLocation";
                 require "view/location.php";
             }
