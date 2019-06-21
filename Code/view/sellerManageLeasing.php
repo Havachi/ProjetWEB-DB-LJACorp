@@ -13,6 +13,10 @@
 
 $title = 'Rent A Snow - Gestion des retours';
 
+if (condition) {
+
+}
+
 ob_start();
 ?>
 	<!-- title -->
@@ -21,9 +25,9 @@ ob_start();
 
 		<!-- summary -->
         <form class="form" method="post" action="index.php?action=updateLeasingStatus">
-			<p>Location : <?= $leasRow['IDLoc']?>&emsp;&emsp;Email : <?= $leasRow['userEmail']?></p>
-			<p>Prise : <?= $leasRow['dateLoc']?>&emsp;&emsp;Retour : <?= $leasRow['dateEndLoc']?></p>
-			<p>Status : <?= $leasRow['statusLoc']?></p>
+			<p>Location : <?= $locRow['IDLoc']?>&emsp;&emsp;Email : <?= $locRow['UserID']?></p>
+			<p>Prise : <?= $locRow['DateLocStart']?>&emsp;&emsp;Retour : <?= $locRow['DateLocEnd']?></p>
+			<p>Status : <?= $locRow['LocStatus']?></p>
 
 		    <!-- table -->
 			<table class="table">
@@ -38,12 +42,11 @@ ob_start();
 				<?php
 				foreach	($snowLoc as $LocRow) : ?>
 				<tr>
-					<td><?= $locRow['']; ?></td> //code
-					<td><?= $locRow['']; ?></td> //quantite
-					<td><?= $locRow['']; ?></td> //date retour
+					<td name="leasCode"><?= $locRow['IDSnow']; ?></td>
+					<td><?= $locRow['QtyOrder']; ?></td>
+					<td><?= $locRow['DateOrderEnd']; ?></td>
 					<td>
-						<?= $locRow['']; ?> //status dropdown list
-						<select>
+						<select name="leasStatus">
 							<!-- case "rendu" -->
 							<?php if(($locRow['OrderStatus']) == 0) :?>
 								<option default value="Rendu">Rendu</option>
