@@ -117,7 +117,7 @@ function getUserID($userEmailAddress)
     $result = 0;
     $strSeparator = '\'';
 
-    $getUserIdQuery = 'SELECT IDUser FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+    $getUserIdQuery = 'SELECT userID FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
 
     require_once 'model/dbConnector.php';
 
@@ -125,10 +125,7 @@ function getUserID($userEmailAddress)
     if ($queryResult === null) {
         throw new SiteUnderMaintenanceExeption;
     } else {
-        if (count($queryResult) == 1) {
-            $result = $queryResult[0]['IDUser'];
-
-        }
+        $result = $queryResult[0]['userID'];
     }
     return $result;
 }
