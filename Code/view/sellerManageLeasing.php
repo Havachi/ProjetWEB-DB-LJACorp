@@ -13,10 +13,6 @@
 
 $title = 'Rent A Snow - Gestion des retours';
 
-if (condition) {
-
-}
-
 ob_start();
 ?>
 	<!-- title -->
