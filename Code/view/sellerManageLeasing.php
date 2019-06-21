@@ -20,7 +20,7 @@ ob_start();
 	<article>
 
 		<!-- summary -->
-        <form class="form" method="post" action="index.php?action=//TODO">
+        <form class="form" method="post" action="index.php?action=updateLeasingStatus">
 			<p>Location : <?= $leasRow['IDLoc']?>&emsp;&emsp;Email : <?= $leasRow['userEmail']?></p>
 			<p>Prise : <?= $leasRow['dateLoc']?>&emsp;&emsp;Retour : <?= $leasRow['dateEndLoc']?></p>
 			<p>Status : <?= $leasRow['statusLoc']?></p>

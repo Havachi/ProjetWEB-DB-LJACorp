@@ -65,12 +65,16 @@ if (isset($_GET['action'])) {
           require_once "controler/controlRent.php";
           mylocation();
           break;
+      case 'updateLeasingStatus';
+          require_once "controler/controlRent.php";
+
+          break;
       case 'manageALeasing':
           require_once "controler/controlRent.php";
           manageALeasing(); //maybe some infos
       case 'test':
           require_once "model/locationManager.php";
-
+          createLeasing($_SESSION['cart'], $_SESSION['userEmailAddress']);
 
       default :
           require "view/home.php";
