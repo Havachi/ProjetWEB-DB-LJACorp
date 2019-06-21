@@ -11,3 +11,24 @@ About Location and OrderedSnow table:
         0 = "Pas Rendu"
         1 = "Rendu Partiel"
         2 = "Rendu"
+
+
+
+        Location:
+
+        $locationData = array(
+                'UserID' => $userID,
+                'DateLocStart' => $DateLocStart,
+                'DateLocEnd' => $DateLocEnd,
+                'LocStatus' => $LocStatus
+            );
+            
+        OrderedSnow:
+
+        $orderedSnowData = array(
+                    'IdSnow' => $IDSnow,
+                    'DateOrderEnd' => $DateOrderEnd,
+                    'QtyOrder' => $QtyOrder,
+                    'NbDOrder' => $NbdOrder,
+                    'OrderStatus' => $OrderStatus
+                );
