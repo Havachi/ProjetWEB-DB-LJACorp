@@ -178,5 +178,5 @@ function snowLeasingRequest($snowCode){
  */
 function emptyCart(){
     $_SESSION['cart'] = array();
-    require "view/home.php";
+    require "view/snows.php";
 }
