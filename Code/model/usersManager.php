@@ -1,5 +1,5 @@
 <?php
-include "exceptions/SiteUnderMaintenanceExeption.php";
+
 
 /**
  *|File Info|
@@ -37,7 +37,6 @@ function isLoginCorrect($userEmailAddress, $userPsw)
     } else {
         if (count($queryResult) == 1) {
             $userHashPsw = $queryResult[0]['userHashPsw'];
-            $hashPasswordDebug = password_hash($userPsw, PASSWORD_DEFAULT);
             $result = password_verify($userPsw, $userHashPsw);
         }
         return $result;
@@ -63,7 +62,7 @@ function registerNewAccount($userEmailAddress, $userPsw)
 
     $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
 
-    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' . $strSeparator . $userEmailAddress . $strSeparator . ',' . $strSeparator . $userHashPsw . $strSeparator . ')';
+    $registerQuery = 'INSERT INTO users (userEmailAddress,userHashPsw) VALUES (' . $strSeparator . $userEmailAddress . $strSeparator . ',' . $strSeparator . $userHashPsw . $strSeparator . ')';
 
     require_once 'model/dbConnector.php';
     $queryResult = executeQueryInsert($registerQuery);
@@ -82,7 +81,7 @@ function registerNewAccount($userEmailAddress, $userPsw)
  * This function is designed to get the type of user
  * For the webapp, it will adapt the behavior of the GUI
  * @param $userEmailAddress
- * @return int (1 = customer ; 2 = seller)
+ * @return int : (1 = customer | 2 = seller)
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 
@@ -109,15 +108,16 @@ function getUserType($userEmailAddress)
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get and return the UserID from the DB, multiple use
- * @param $userEmailAddress The users Email Address
- * @return The user ID
+ * @param $userEmailAddress : The users Email Address
+ * @return int : The user ID
  * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getUserID($userEmailAddress)
 {
+    $result = 0;
     $strSeparator = '\'';
 
-    $getUserIdQuery = 'SELECT IDUser FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+    $getUserIdQuery = 'SELECT userID FROM users WHERE userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
 
     require_once 'model/dbConnector.php';
 
@@ -125,9 +125,35 @@ function getUserID($userEmailAddress)
     if ($queryResult === null) {
         throw new SiteUnderMaintenanceExeption;
     } else {
-        if (count($queryResult) == 1) {
-            $result = $queryResult[0]['IDUser'];
-        }
-        return $result;
+        $result = $queryResult[0]['userID'];
     }
+    return $result;
+}
+
+/**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
+ * This function get and return the UserEmail from the DB, multiple use
+ * @param $userID : The users unique identifier
+ * @return String : The user Email
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
+ **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
+function getUserEmail($userID)
+{
+    $strSeparator = '\'';
+    $result="";
+
+    $getUserEmailQuery = 'SELECT userEmailAddress FROM users WHERE IDUser =' . $strSeparator . $userID . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+
+    $queryResult = executeQuerySelect($getUserEmailQuery);
+    if ($queryResult === null) {
+        throw new SiteUnderMaintenanceExeption;
+    } else {
+        if (count($queryResult) == 1) {
+            $result = $queryResult[0]['userEmailAddress'];
+
+        }
+    }
+
+    return $result;
 }

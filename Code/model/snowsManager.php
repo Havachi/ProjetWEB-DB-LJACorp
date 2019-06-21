@@ -27,7 +27,7 @@ function getSnows()
 
     require_once 'model/dbConnector.php';
     $snowResults = executeQuerySelect($snowsQuery);
-    if($snowResults === null){
+    if ($snowResults === null) {
         throw new SiteUnderMaintenanceExeption;
     }
 
@@ -39,6 +39,7 @@ function getSnows()
  * This function is designed to get only one snow
  * @param $snow_code : snow code to display (selected by the user)
  * @return array|null : snow to display. Can be empty.
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getASnow($snow_code)
 {
@@ -49,6 +50,9 @@ function getASnow($snow_code)
 
     require_once 'model/dbConnector.php';
     $snowResults = executeQuerySelect($snowQuery);
+    if ($snowResults === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
 
     return $snowResults;
 }
@@ -58,28 +62,35 @@ function getASnow($snow_code)
  * This function recover the quantity of snow in stock from the database.
  * @param $snowCode : The unique code of the snow
  * @return array : if the snow exist
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnowQty($snowCode)
 {
     $strSep = '\'';
-    $snowQty = 0;
     $query = "SELECT qtyAvailable FROM snows WHERE code=" . $strSep . $snowCode . $strSep;
     require_once 'model/dbConnector.php';
     $snowQty = executeQuerySelect($query);
+    if ($snowQty === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
     return $snowQty[0]['qtyAvailable'];
 }
 
 /**~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~
  * This function get the IDSnow in database from the snow code
- * @param $snowCode The snow code
+ * @param $snowCode : The snow code
  * @return array
+ * @throws SiteUnderMaintenanceExeption : in case the query can't be achieved
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
-function getSnowID($snowCode){
+function getSnowID($snowCode)
+{
     $strSep = '\'';
-    $IDSnow = 0;
-    $query = "SELECT IDSnow FROM snows WHERE code=" . $strSep . $snowCode . $strSep;
+    $query = 'SELECT IDSnow FROM snows WHERE code=' . $strSep . $snowCode . $strSep;
     require_once 'model/dbConnector.php';
     $IDSnow = executeQuerySelect($query);
+    if ($IDSnow === null) {
+        throw new SiteUnderMaintenanceExeption;
+    }
     return $IDSnow[0]['IDSnow'];
 }
 

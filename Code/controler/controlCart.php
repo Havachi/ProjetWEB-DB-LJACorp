@@ -80,7 +80,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                                     //if the qty hasn't been updated
                                     $cartArrayTemp = array(
                                         'code' => $snowCode,
-                                        'dateD' => Date("d-m-y"),
+                                        'dateD' => Date("d/m/Y"),
                                         'qty' => $snowLocationRequest['inputQuantity'],
                                         'nbD' => $snowLocationRequest['inputDays']
                                     );
@@ -92,7 +92,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
                         } else { //current cart is empty
                             $cartArrayTemp = array(
                                 'code' => $snowCode,
-                                'dateD' => Date("d-m-y"),
+                                'dateD' => Date("d/m/Y"),
                                 'qty' => $snowLocationRequest['inputQuantity'],
                                 'nbD' => $snowLocationRequest['inputDays']
                             );
@@ -178,5 +178,5 @@ function snowLeasingRequest($snowCode){
  */
 function emptyCart(){
     $_SESSION['cart'] = array();
-    require "view/home.php";
+    require "view/snows.php";
 }

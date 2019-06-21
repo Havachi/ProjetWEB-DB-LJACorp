@@ -56,6 +56,11 @@ function displaySnows(){
  */
 function displayASnow($snow_code){
     require_once "model/snowsManager.php";
-    $snowsResults= getASnow($snow_code);
+    try {
+        $snowsResults = getASnow($snow_code);
+    }catch(SiteUnderMaintenanceExeption $errormsg) {
+        require "view/home.php";
+        die;
+    }
     require "view/aSnow.php";
 }

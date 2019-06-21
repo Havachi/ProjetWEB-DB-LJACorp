@@ -22,6 +22,7 @@
  **~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~~-~-~-~-~-~-~-~-~-~-~*/
 function getSnowQtyInCart($currentCartArray, $snowCode)
 {
+    $snowQty=0;
     foreach ($currentCartArray as $key => $cart) {
         if ($snowCode == $cart['code']) {
             $snowQty = $cart['qty'];
