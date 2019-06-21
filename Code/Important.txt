@@ -22,10 +22,11 @@ About Location and OrderedSnow table:
                 'DateLocEnd' => $DateLocEnd,
                 'LocStatus' => $LocStatus
             );
-            
+
         OrderedSnow:
 
         $orderedSnowData = array(
+                    'IdLoc' => $IDLoc,
                     'IdSnow' => $IDSnow,
                     'DateOrderEnd' => $DateOrderEnd,
                     'QtyOrder' => $QtyOrder,
